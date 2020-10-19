@@ -2,9 +2,9 @@ import * as React from 'react';
 import { View, Text, FlatList, StyleSheet, Button, Platform, Alert } from 'react-native';
 import firebase from 'firebase';
 import _ from 'lodash';
-import {YellowBox} from "react-native";
+import {LogBox} from "react-native";
 
-YellowBox.ignoreWarnings(['Setting a timer']);
+LogBox.ignoreLogs(['Setting a timer']);
 const _console = _.clone(console);
 console.warn = message => {
     if (message.indexOf('Setting a timer') <= -1) {
@@ -26,6 +26,7 @@ export default class ProductDetails extends React.Component{
 
     state = { product: null};
 
+    //Vi får id fra det produkt der er blevet trykket på og loader det fra firebase endpoint
     componentDidMount() {
         const id = this.props.navigation.getParam('id');
 
@@ -40,12 +41,16 @@ export default class ProductDetails extends React.Component{
                 this.setState({ product: dataObject.val() });
             });
     };
+
     handleEdit = () => {
         const {navigation} = this.props;
         const id = navigation.getParam('id');
+        //Navigerer til klassen EditProduct med tilhørende id
         this.props.navigation.navigate('EditProduct', {id});
     };
     confirmDelete = () => {
+        //Hvis platform er lig med ios eller android får vi en alert.
+        //Derfor hvis det er computer vil den ikke gå ind i denne metode
         if(Platform.OS ==='ios' || Platform.OS ==='android'){
             Alert.alert('Are you sure?', 'Do you want to delete the product?', [
                 { text: 'Cancel', style: 'cancel' },
@@ -58,6 +63,7 @@ export default class ProductDetails extends React.Component{
             }
         }
     };
+
     handleDelete = () => {
         const {navigation} = this.props;
         const id = navigation.getParam("id");
@@ -74,6 +80,7 @@ export default class ProductDetails extends React.Component{
     };
 
     render() {
+        //HVis der er et product skal den returnere nedenståe views og buttons
         const {product} = this.state;
         if (!product) {
             return(

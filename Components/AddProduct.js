@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
 
 export default class AddProduct extends React.Component{
 
+    //Vi sætter de forskellige attributter i state til at kunne ændres
     state = {
         brand: '',
         size: '',
@@ -32,6 +33,7 @@ export default class AddProduct extends React.Component{
 
     };
 
+    //vi sætter state i de forskellige attributter fra det brugeren har indtastet
     handleBrandChange = text => this.setState({ brand: text });
 
     handleSizeChange = text => this.setState({size: text});
@@ -40,9 +42,11 @@ export default class AddProduct extends React.Component{
 
     handleTypeChange = text => this.setState({type: text});
 
+    //
     handleSave = () => {
         const {brand, size, price, type} = this.state;
         try {
+            //Vi sætter de nye værdier op i firebase
             const reference = firebase
                 .database()
                 .ref('/Products/')
@@ -61,6 +65,7 @@ export default class AddProduct extends React.Component{
         }
     };
     render() {
+        //returnerer siden hvor brugeren kan indtaste værdier
         const {brand, size, price, type} = this.state;
         return(
             <SafeAreaView style={styles.container}>

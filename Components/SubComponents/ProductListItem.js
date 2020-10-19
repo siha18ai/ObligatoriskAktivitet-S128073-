@@ -21,12 +21,15 @@ const styles = StyleSheet.create({
 });
 
 export default class ProductDetails extends React.Component{
+    //Håndterer brugerens tryk på produkterne i product list
     handlePress = () => {
         const {id, onSelect} = this.props
         onSelect(id);
     };
 
     render() {
+        //Returnerer producter i list view og sørger for at de er touchable
+        //Returner også de attributter der skal ses i listen
         const { product } = this.props;
         return(
             <TouchableOpacity style={styles.container} onPress={this.handlePress}>

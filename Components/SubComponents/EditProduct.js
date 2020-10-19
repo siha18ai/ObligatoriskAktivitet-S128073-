@@ -38,6 +38,7 @@ export default class EditProduct extends React.Component{
 
     }
     loadProduct = id => {
+        //Kalder firebase endpoint og fanger data
         firebase
             .database()
             .ref('/Products/'+id)
@@ -62,6 +63,7 @@ export default class EditProduct extends React.Component{
             firebase
                 .database()
                 .ref(`/Products/${id}`)
+                //Opdaterer dataen i firebase endpoint
                 .update({ brand, size, price, type });
             Alert.alert("Din information er nu opdateret");
             navigation.goBack();
@@ -72,6 +74,10 @@ export default class EditProduct extends React.Component{
     };
 
     render() {
+        /*
+        Vi opretter et edit view og opretter sidst en knap der kalder på ovenstående metode
+        Med safeareaview sikre vi at viewet ikke står udenfor skærmen etc.
+         */
         const { brand, size, price, type } = this.state;
         return (
             <SafeAreaView style={styles.container}>
