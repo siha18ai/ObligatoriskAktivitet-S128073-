@@ -3,7 +3,6 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import firebase from 'firebase';
 
 import ProductListItem from './SubComponents/ProductListItem';
-import GoogleLogin from './GoogleLogin';
 
 export default class ProductList extends React.Component {
     //Sætter products til at være et state så vi kan give den værdier

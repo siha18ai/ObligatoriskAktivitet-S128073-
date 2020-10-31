@@ -1,20 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import ProductList from './Components/ProductList';
 import { createStackNavigator } from 'react-navigation-stack';
 import Camera from './Components/CameraScreen';
-import {MaterialIcons} from '@expo/vector-icons';
 import {AntDesign} from '@expo/vector-icons';
-import {Entypo} from '@expo/vector-icons';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {createAppContainer} from "react-navigation";
 import firebase from 'firebase';
 import ProductDetails from "./Components/SubComponents/ProductDetails";
 import AddProduct from "./Components/AddProduct";
 import EditProduct from "./Components/SubComponents/EditProduct";
-import GoogleLogin from "./Components/GoogleLogin";
+import LoginView from "./Components/Login/LoginView";
+import SignUpView from "./Components/Login/SignUpView";
+import GLOBALUser from "./Components/GlobalUser";
+import { Alert,Platform,LogBox} from 'react-native';
+import LogOutScreen from './Components/SubComponents/LogOutView';
+import SettingView from './Components/SubComponents/SettingView';
+import Inbox from './Components/SubComponents/Inbox/Inbox';
+import MyTrades from './Components/SubComponents/Trades/MyTrades';
 
+
+/*
+Hvis platformen ikke er web, så fjerner vi logbox
+ */
+if(Platform.OS !== "web"){
+    LogBox.ignoreAllLogs(true)
+}
 
 /*
 Vores product listView hvor vi samler de forskellige screens der skal indgå
@@ -32,83 +44,141 @@ const StackNavigator = createStackNavigator(
 //Vi opretter vores tab i bunden
 const TabNavigator = createBottomTabNavigator({
 
-        //Fortæller bottom navigator hvilke komponenter den skal indeholde
-        Login: {
-        screen: GoogleLogin,
-        navigationOptions: {
-          tabBarLabel: "Login",
-          tabBarIcon: ({tintColor}) => (
-              <AntDesign name={"google"} size={24} color={tintColor}/>
-          )
-
-        },
-      },
-      Main: {
+    Main: {
         screen: StackNavigator,
         navigationOptions: {
           tabBarLabel: "Produkter",
           tabBarIcon: ({tintColor}) => (
-              <AntDesign name={'home'} size={24} color={tintColor}/>
+              <AntDesign name={'home'} size={20} color={tintColor}/>
           )
         },
       },
-      Add: {
+    Inbox: {
+          screen: Inbox,
+            navigationOptions: {
+              tabBarLabel: "Indbakke",
+                tabBarIcon: ({tintColor}) => (
+                  <AntDesign name={'inbox'} size={20} color={tintColor}/>
+                )
+            },
+        },
+    Add: {
         screen: AddProduct,
         navigationOptions: {
-          tabBarLabel: "Nyt produkt",
+          tabBarLabel: "Tilføj",
           tabBarIcon: ({tintColor}) => (
-              <AntDesign name={'pluscircleo'} size={24} color={tintColor}/>
+              <AntDesign name={'pluscircleo'} size={20} color={tintColor}/>
           )
         },
       },
+    Trades: {
+        screen: MyTrades,
+        navigationOptions: {
+            tabBarLabel: "Handler",
+            tabBarIcon: ({tintColor}) => (
+                <AntDesign name={'shoppingcart'} size={20} color={tintColor}/>
+            )
+        },
+    },
 
-      /*
-            Camera: {
-              screen: Camera,
-              navigationOptions: {
-                tabBarLabel: "Camera",
-                tabBarIcon: ({tintColor}) => (
-                    <AntDesign name={'camera'} size={24} color={tintColor}/>
-                )
-              },
-            }
-      */
+    Settings: {
+          screen: SettingView,
+        navigationOptions: {
+              tabBarLabel: "Indstillinger",
+            tabBarIcon: ({tintColor}) => (
+                  <MaterialCommunityIcons name={'account'} size={20} color={tintColor} />
+            )
+        },
+    },
 
     },
+
     {
       tabBarOptions: {
         showIcon:true,
         labelStyle: {
-          fontSize: 15,
+          fontSize: 12,
         },
         activeTintColor: 'darkblue',
         inactiveTintColor: 'gray',
         size:40
       }
     });
+const LoginNavigator = createBottomTabNavigator({
+    Login: {
+        screen: LoginView,
+        navigationOptions: {
+            tabBarIcon:({tintColor}) => (
+                <AntDesign name={"login"} size={24} color={tintColor}/>
+            )
+        }
+    },
+    SignUp: {
+        screen: SignUpView,
+        navigationOptions: {
+            tabBarIcon:({tintColor}) => (
+                <AntDesign name={"plus"} size={24} color={tintColor}/>
+            )
+        }
+    },
+}
+);
+
+const LoginContainer = createAppContainer(LoginNavigator);
 const AppContainer = createAppContainer(TabNavigator);
 
 export default class App extends React.Component {
-    //Opretter forbindelse til vores firebase
-    componentDidMount() {
-    const firebaseConfig = {
-      apiKey: "AIzaSyBzhmQLVF2SX-JOCj5ByGEeYX6SPXiD608",
-      authDomain: "obaktivitet1.firebaseapp.com",
-      databaseURL: "https://obaktivitet1.firebaseio.com",
-      projectId: "obaktivitet1",
-      storageBucket: "obaktivitet1.appspot.com",
-      messagingSenderId: "1094098734207",
-      appId: "1:1094098734207:web:cc153710b383277492c34a",
-      measurementId: "G-6YGGC5MT4X"
+
+    constructor() {
+        super();
+        GLOBALUser.user = this;
+        this.init();
+        this.observeAuth();
+    }
+    state= {
+        user:null
     };
-    // Initialize Firebase
-    if (firebase.apps.length === 0) {
-      firebase.initializeApp(firebaseConfig);
+
+    componentWillUnmount() {
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
-  }
+    //Opretter forbindelse til vores firebase
+    init = () => {
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzhmQLVF2SX-JOCj5ByGEeYX6SPXiD608",
+            authDomain: "obaktivitet1.firebaseapp.com",
+            databaseURL: "https://obaktivitet1.firebaseio.com",
+            projectId: "obaktivitet1",
+            storageBucket: "obaktivitet1.appspot.com",
+            messagingSenderId: "1094098734207",
+            appId: "1:1094098734207:web:cc153710b383277492c34a",
+            measurementId: "G-6YGGC5MT4X"
+        }
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+    }
+    observeAuth = () => {
+        firebase.auth().onAuthStateChanged(user => {
+            this.setState({user});
+
+            GLOBALUser.user.setState({
+                user:user
+            })
+        });
+    }
   render() {
-      //Returnere vores tab navigator
-      return <AppContainer />;
+        if (!this.state.user) {
+            return <LoginContainer/>
+        } else {
+            //Returnere vores tab navigator
+            return <AppContainer/>;
+        }
   }
 }
+
+

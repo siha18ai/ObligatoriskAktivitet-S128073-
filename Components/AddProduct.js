@@ -10,9 +10,15 @@ import {
     SafeAreaView,
 } from 'react-native';
 import firebase from 'firebase';
+import {Body, Container, Content, Header, Title} from "native-base";
+import InboxContent from "./SubComponents/Inbox/Inbox";
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'center' },
+    container: {
+        // flexDirection: 'row',
+        flex: 1,
+        justifyContent:'center'
+    },
     row: {
         flexDirection: 'row',
         height: 30,
@@ -68,6 +74,12 @@ export default class AddProduct extends React.Component{
         //returnerer siden hvor brugeren kan indtaste værdier
         const {brand, size, price, type} = this.state;
         return(
+            <Container style={styles.container}>
+                <Header>
+                    <Body>
+                    <Title> Tilføj produkt </Title>
+                    </Body>
+                </Header>
             <SafeAreaView style={styles.container}>
                 <ScrollView>
                     <View style={styles.row}>
@@ -106,6 +118,8 @@ export default class AddProduct extends React.Component{
                     <Button title={"Add product"} onPress={this.handleSave}/>
                 </ScrollView>
             </SafeAreaView>
+            </Container>
+
         )
     }
 
