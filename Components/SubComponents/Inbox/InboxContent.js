@@ -9,31 +9,60 @@ import {
     StyleSheet,
     Alert,
     Image,
-    PixelRatio
+    PixelRatio,
+    FlatList
 } from 'react-native';
 import logo1 from '../../../assets/Image1.png';
+import MessageListItem from "../MessageListItem";
 
 
 export default class InboxContent extends React.Component{
+state = {
+    message: {}
+};
+
+componentDidMount() {
+    firebase
+        .database()
+        .ref('/Message')
+        .on('value', snapshot => {
+            this.setState({message: snapshot.val()})
+        });
+}
+
+handleSelectMessage = id => {
+    this.props.navigation.navigate('MessageListItem', {id})
+}
 
     render() {
+    const { message } = this.state;
+
+    if (!message) {
+        return <Text> Du skal være logget ind for at se beskeder </Text>
+    }
+
+    const messageArray = Object.values(message);
+
+    const messageKeys = Object.values(message);
+
         return(
             <View>
-            <View style={styles.row}>
-                <Image source={logo1} style={styles.cellImage}/>
-                <View style={styles.container}>
-                    <Text style={styles.name} numberOfLines={1}>
-                        Simon Oliver
-                    </Text>
-                    <Text style={styles.lastMessage} numberOfLines={1}>
-                        Jeg vil gerne købe dine brugte støvler
-                    </Text>
-                    <Text style={styles.lastMessage} numberOfLines={1}>
-                        5 days ago
-                    </Text>
-                </View>
-            </View>
+
+                <FlatList
+                    data={messageArray}
+                    keyExtractor={(item, index) => messageKeys[index]}
+                    renderItem={({item, index}) => (
+                        <MessageListItem
+                        message={item}
+                        id={messageKeys[index]}
+                        onSelect={this.handleSelectMessage}/>
+                    )}
+                />
                 <View style={styles.cellBorder}/>
+
+                <Button
+                    title={"Ny Besked"}
+                    onPress={() => this.props.navigation.navigate('NewMessage')}/>
             </View>
 
 
@@ -84,5 +113,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
         height: 1 / PixelRatio.get(),
         marginLeft: 4
+    },
+    cellHeight: {
+        marginTop: 50
     }
 });

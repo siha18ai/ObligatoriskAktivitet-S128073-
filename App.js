@@ -19,6 +19,7 @@ import LogOutScreen from './Components/SubComponents/LogOutView';
 import SettingView from './Components/SubComponents/SettingView';
 import Inbox from './Components/SubComponents/Inbox/Inbox';
 import MyTrades from './Components/SubComponents/Trades/MyTrades';
+import NewMessage from "./Components/SubComponents/Inbox/NewMessage";
 
 
 /*
@@ -41,6 +42,7 @@ const StackNavigator = createStackNavigator(
     {initialRouteKey: 'ProductList'}
 );
 
+
 //Vi opretter vores tab i bunden
 const TabNavigator = createBottomTabNavigator({
 
@@ -53,6 +55,8 @@ const TabNavigator = createBottomTabNavigator({
           )
         },
       },
+
+
     Inbox: {
           screen: Inbox,
             navigationOptions: {
@@ -123,6 +127,9 @@ const LoginNavigator = createBottomTabNavigator({
     },
 }
 );
+
+
+
 
 const LoginContainer = createAppContainer(LoginNavigator);
 const AppContainer = createAppContainer(TabNavigator);
