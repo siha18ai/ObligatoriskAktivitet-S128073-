@@ -36,7 +36,6 @@ export default class SignUpView extends React.Component {
             <View style={styles.Container}>
                 <TitleLayout title={"Opret dig"}/>
             <View style={styles.insideContainer}>
-                <Text style={styles.header}> Login </Text>
                 <TextInput placeholder={"email"} value={email} onChangeText={this.handleChangeEmail}
                 style={styles.textInput}/>
                 <TextInput placeholder={"password"} value={password} onChangeText={this.handleChangePassword}

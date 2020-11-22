@@ -20,10 +20,10 @@ const styles = StyleSheet.create({
     label: { fontWeight: 'bold' },
 });
 
-export default class MessageListItem extends React.Component{
+export default class MessageDetails extends React.Component{
     //Håndterer brugerens tryk på produkterne i product list
     handlePress = () => {
-        const {id, onSelect} = this.props;
+        const {id, onSelect} = this.props
         onSelect(id);
     };
 

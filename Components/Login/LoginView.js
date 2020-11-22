@@ -8,8 +8,13 @@ import {
     ActivityIndicator,
     StyleSheet,
     Alert,
+    Image
 } from 'react-native';
 import TitleLayout from "../Layout/TitleLayout";
+
+const Logo2 = require("../../assets/LoginImage.png");
+
+
 
 export default class LoginView extends React.Component {
 
@@ -39,9 +44,8 @@ export default class LoginView extends React.Component {
         const { email, password, errorMessage } = this.state;
         return (
         <View style={styles.Container}>
-            <TitleLayout title={"Velkommen til Sportsbørsen"}/>
+            <Image source={Logo2} style={styles.image}/>
             <View style={styles.insideContainer}>
-                <Text style={styles.header}> Login </Text>
                 <TextInput placeholder="email" value={email} onChangeText={this.handleChangeEmail}
                 style={styles.textInput}/>
                 <TextInput placeholder="password" value={password} onChangeText={this.handleChangePassword}
@@ -101,4 +105,7 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 20,
     },
+    image: {
+        textAlign: 'center'
+    }
 });

@@ -20,6 +20,8 @@ import SettingView from './Components/SubComponents/SettingView';
 import Inbox from './Components/SubComponents/Inbox/Inbox';
 import MyTrades from './Components/SubComponents/Trades/MyTrades';
 import NewMessage from "./Components/SubComponents/Inbox/NewMessage";
+import InboxContent from './Components/SubComponents/Inbox/InboxContent';
+import MessageDetails from './Components/SubComponents/Inbox/MessageDetails';
 
 
 /*
@@ -41,7 +43,14 @@ const StackNavigator = createStackNavigator(
     //Vi siger hvilken klasse der først skal tilgåes af de 3 ovenstående
     {initialRouteKey: 'ProductList'}
 );
-
+const StackNavigatorMessage = createStackNavigator(
+    {
+        InboxContent: { screen: InboxContent },
+        MessageDetails: { screen: MessageDetails }
+    },
+    //Vi siger hvilken klasse der først skal tilgåes af de 3 ovenstående
+    {initialRouteKey: 'InboxContent'}
+);
 
 //Vi opretter vores tab i bunden
 const TabNavigator = createBottomTabNavigator({
@@ -58,7 +67,7 @@ const TabNavigator = createBottomTabNavigator({
 
 
     Inbox: {
-          screen: Inbox,
+          screen: StackNavigatorMessage,
             navigationOptions: {
               tabBarLabel: "Indbakke",
                 tabBarIcon: ({tintColor}) => (

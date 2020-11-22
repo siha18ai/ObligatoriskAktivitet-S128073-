@@ -13,7 +13,7 @@ import {
     FlatList
 } from 'react-native';
 import logo1 from '../../../assets/Image1.png';
-import MessageListItem from "../MessageListItem";
+import MessageListItem from "./MessageListItem";
 
 
 export default class InboxContent extends React.Component{
@@ -31,7 +31,7 @@ componentDidMount() {
 }
 
 handleSelectMessage = id => {
-    this.props.navigation.navigate('MessageListItem', {id})
+    this.props.navigation.navigate('MessageDetails', { id })
 }
 
     render() {
@@ -43,7 +43,7 @@ handleSelectMessage = id => {
 
     const messageArray = Object.values(message);
 
-    const messageKeys = Object.values(message);
+    const messageKeys = Object.keys(message);
 
         return(
             <View>

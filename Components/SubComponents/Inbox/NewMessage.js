@@ -25,7 +25,7 @@ export default class NewMessage extends React.Component{
 
     handleSave = () => {
         const {message} = this.state;
-
+        const {navigation} = this.props;
         try {
             const reference = firebase
                 .database()
@@ -35,7 +35,7 @@ export default class NewMessage extends React.Component{
             this.setState({
                 message: ''
             });
-            this.props.navigation.navigate('InboxContent')
+            navigation.goBack();
         } catch (e) {
             Alert.alert(`Error: ${e.message}`)
         }
