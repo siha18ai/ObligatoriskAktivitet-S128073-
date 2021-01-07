@@ -1,7 +1,6 @@
 import * as React from 'react';
 import firebase from 'firebase';
 import {
-    Button,
     Text,
     View,
     TextInput,
@@ -11,6 +10,7 @@ import {
     Image
 } from 'react-native';
 import TitleLayout from "../Layout/TitleLayout";
+import {Buttons} from "../Buttons";
 
 const Logo2 = require("../../assets/LoginImage.png");
 
@@ -19,7 +19,7 @@ const Logo2 = require("../../assets/LoginImage.png");
 export default class LoginView extends React.Component {
 
     state = {
-        email: 'Email@email.dk',
+        email: 'mail@email.dk',
         password: '123456@',
         isLoading: false,
         isCompleted: false,
@@ -79,7 +79,7 @@ export default class LoginView extends React.Component {
         if (isLoading) {
             return <ActivityIndicator/>
         }
-        return <Button onPress={this.handleSubmit} title={"Login"}/>
+        return <Buttons onPress={this.handleSubmit} text="Login"/>
 
     }
 }

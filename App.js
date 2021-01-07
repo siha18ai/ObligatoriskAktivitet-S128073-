@@ -3,7 +3,6 @@ import React from 'react';
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import ProductList from './Components/ProductList';
 import { createStackNavigator } from 'react-navigation-stack';
-import Camera from './Components/CameraScreen';
 import {AntDesign} from '@expo/vector-icons';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {createAppContainer} from "react-navigation";
