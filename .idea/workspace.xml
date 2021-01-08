@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="d773fe26-e7fd-4a6e-bb54-2fafe7338746" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Components/Buttons.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Components/Form.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Components/Row.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/AddProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AddProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/CameraScreen.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Components/Login/LoginView.js" beforeDir="false" afterPath="$PROJECT_DIR$/Components/Login/LoginView.js" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/Components/Login/SignUpView.js" beforeDir="false" afterPath="$PROJECT_DIR$/Components/Login/SignUpView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/ProductList.js" beforeDir="false" afterPath="$PROJECT_DIR$/Components/ProductList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/SubComponents/CameraComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/SubComponents/ProductDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/Components/SubComponents/ProductDetails.js" afterDir="false" />
+
       <change beforePath="$PROJECT_DIR$/Components/SubComponents/Inbox/InboxContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/Components/SubComponents/Inbox/InboxContent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Components/SubComponents/LogOutView.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Components/SubComponents/ProductDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/Components/SubComponents/ProductDetails.js" afterDir="false" />
@@ -12,12 +26,12 @@
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+
   <component name="DefaultGradleProjectSettings">
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
@@ -125,6 +139,10 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -163,14 +181,14 @@
         <option value="$PROJECT_DIR$/Components/Settings/MyProducts.js" />
       </list>
     </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="877" />
-  </component>
+  <component name="ProjectId" id="1mc3kHhTJiTB8EtStAhy1bhd7r4" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -238,6 +256,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -245,10 +265,14 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\simon\OneDrive\CBS\5. semester\Inno og ny teknologi\Eksamen\ObligatoriskAktivitet-S128073-\Components" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Components/SubComponents" />
       <recent name="$PROJECT_DIR$/Components/Settings" />
@@ -286,6 +310,12 @@
       <workItem from="1603983706107" duration="10000" />
       <workItem from="1603983789876" duration="30643000" />
       <workItem from="1605881452942" duration="1618000" />
+      <workItem from="1605970849696" duration="11858000" />
+      <workItem from="1609779195579" duration="8280000" />
+      <workItem from="1609864476044" duration="37790000" />
+    </task>
+    <servers />
+  </component>
       <workItem from="1605970849696" duration="13900000" />
       <workItem from="1607261236549" duration="3335000" />
       <workItem from="1609772441294" duration="36107000" />
@@ -365,6 +395,23 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="638" y="306" key="FileChooserDialogImpl" />
+    <state x="638" y="306" key="FileChooserDialogImpl/0.0.1714.1103@0.0.1714.1103" />
   </component>
   <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
     <option name="sizePresets">

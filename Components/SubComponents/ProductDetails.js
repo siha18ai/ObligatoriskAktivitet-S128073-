@@ -1,21 +1,21 @@
 import * as React from 'react';
-import { View, Text, FlatList, StyleSheet, Button, Platform, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Button, Platform, Alert, ImageBackground, ScrollView, SafeAreaView } from 'react-native';
 import firebase from 'firebase';
 import _ from 'lodash';
 import {LogBox} from "react-native";
+import {Buttons} from "../Buttons";
 
 LogBox.ignoreLogs(['Setting a timer']);
 const _console = _.clone(console);
 console.warn = message => {
     if (message.indexOf('Setting a timer') <= -1) {
-        _console.warn(message);
+        _console.warn(message);zs
     }
 };
 
+export default class ProductDetails extends React.Component {
 
-export default class ProductDetails extends React.Component{
-
-    state = { product: null};
+    state = {product: null};
 
     //Vi får id fra det produkt der er blevet trykket på og loader det fra firebase endpoint
     componentDidMount() {
@@ -24,12 +24,13 @@ export default class ProductDetails extends React.Component{
         this.loadProduct(id)
 
     }
+
     loadProduct = id => {
         firebase
             .database()
-            .ref('/Products/'+id)
+            .ref('/Products/' + id)
             .on('value', dataObject => {
-                this.setState({ product: dataObject.val() });
+                this.setState({product: dataObject.val()});
             });
     };
 
@@ -42,14 +43,14 @@ export default class ProductDetails extends React.Component{
     confirmDelete = () => {
         //Hvis platform er lig med ios eller android får vi en alert.
         //Derfor hvis det er computer vil den ikke gå ind i denne metode
-        if(Platform.OS ==='ios' || Platform.OS ==='android'){
+        if (Platform.OS === 'ios' || Platform.OS === 'android') {
             Alert.alert('Are you sure?', 'Do you want to delete the product?', [
-                { text: 'Cancel', style: 'cancel' },
+                {text: 'Cancel', style: 'cancel'},
                 // Vi bruger this.handleDelete som eventHandler til onPress
-                { text: 'Delete', style: 'destructive', onPress: this.handleDelete },
+                {text: 'Delete', style: 'destructive', onPress: this.handleDelete},
             ]);
         } else {
-            if(confirm('Er du sikker på du vil slette dette produkt?')){
+            if (confirm('Er du sikker på du vil slette dette produkt?')) {
                 this.handleDelete()
             }
         }
@@ -74,37 +75,54 @@ export default class ProductDetails extends React.Component{
         //HVis der er et product skal den returnere nedenståe views og buttons
         const {product} = this.state;
         if (!product) {
-            return(
+            return (
                 <Text>
                     No Product
                 </Text>
             )
         }
-        return(
-            <View style={styles.container}>
-                <Button title="Edit" onPress={this.handleEdit} />
-                <Button title="Delete" onPress={this.confirmDelete}/>
-            <View style={styles.row}>
-                <Text style={styles.label}> Brand </Text>
-                <Text style={styles.value}> {product.brand} </Text>
-            </View>
-            <View style={styles.row}>
-                <Text style={styles.label}> Size </Text>
-                <Text style={styles.value}> {product.size} </Text>
-            </View>
-            <View style={styles.row}>
-                <Text style={styles.label}> Price </Text>
-                <Text style={styles.value}> {product.price} </Text>
-            </View>
-            <View style={styles.row}>
-                <Text style={styles.label}> Type </Text>
-                <Text style={styles.value}> {product.type} </Text>
-            </View>
+        const Photo = this.props
 
-            </View>
-
+        return (
+            <SafeAreaView>
+            <ScrollView>
+                <View>
+                    <ImageBackground
+                        source={Photo}
+                        style={{width: '100%', height: 270}}
+                        imageStyle={{borderBottomEndRadius: 65}}
+                    >
+                    </ImageBackground>
+                </View>
+                <View>
+                    <Text>Beskrivelse</Text>
+                    <Text>{product.brand}</Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.label}> Brand </Text>
+                    <Text style={styles.value}> {product.brand} </Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.label}> Size </Text>
+                    <Text style={styles.value}> {product.size} </Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.label}> Price </Text>
+                    <Text style={styles.value}> {product.price} </Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.label}> Type </Text>
+                    <Text style={styles.value}> {product.type} </Text>
+                </View>
+                <View style={styles.row}>
+                    <Buttons text="Edit" onPress={this.handleEdit}/>
+                    <Buttons text="Delete" onPress={this.confirmDelete}/>
+                </View>
+            </ScrollView>
+            </SafeAreaView>
         )
     }
+}
 
 }
 const styles = StyleSheet.create({

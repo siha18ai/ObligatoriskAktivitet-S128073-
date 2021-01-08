@@ -1,7 +1,6 @@
 import * as React from 'react';
 import firebase from 'firebase';
 import {
-    Button,
     Text,
     View,
     TextInput,
@@ -9,6 +8,7 @@ import {
     StyleSheet,
 } from 'react-native';
 import TitleLayout from "../Layout/TitleLayout";
+import {Buttons} from "../Buttons";
 
 
 export default class SignUpView extends React.Component {
@@ -71,7 +71,7 @@ export default class SignUpView extends React.Component {
         if (isLoading) {
             return <ActivityIndicator/>
         }
-        return <Button onPress={this.handleSubmit} title={"Sign Up"}/>
+        return <Buttons onPress={this.handleSubmit} text="Sign Up"/>
 
     }
 
