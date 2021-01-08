@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import TitleLayout from "../Layout/TitleLayout";
 
-const Logo2 = require("../../assets/LoginImage.png");
+const Logo2 = require("../../assets/PORNHUBPNG.png");
 
 
 
@@ -106,6 +106,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     image: {
-        textAlign: 'center'
+        alignContent: 'center'
     }
 });

@@ -11,16 +11,7 @@ console.warn = message => {
         _console.warn(message);
     }
 };
-const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'flex-start' },
-    row: {
-        margin: 5,
-        padding: 5,
-        flexDirection: 'row',
-    },
-    label: { width: 100, fontWeight: 'bold' },
-    value: { flex: 1 },
-});
+
 
 export default class ProductDetails extends React.Component{
 
@@ -116,3 +107,13 @@ export default class ProductDetails extends React.Component{
     }
 
 }
+const styles = StyleSheet.create({
+    container: { flex: 1, justifyContent: 'flex-start' },
+    row: {
+        margin: 5,
+        padding: 5,
+        flexDirection: 'row',
+    },
+    label: { width: 100, fontWeight: 'bold' },
+    value: { flex: 1 },
+});
