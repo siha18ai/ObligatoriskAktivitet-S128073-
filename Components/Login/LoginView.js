@@ -12,7 +12,7 @@ import {
 import TitleLayout from "../Layout/TitleLayout";
 import {Buttons} from "../Buttons";
 
-const Logo2 = require("../../assets/LoginImage.png");
+const Logo2 = require("../../assets/PORNHUBPNG.png");
 
 
 
@@ -106,6 +106,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     image: {
-        textAlign: 'center'
+        alignContent: 'center'
     }
 });

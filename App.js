@@ -14,13 +14,16 @@ import LoginView from "./Components/Login/LoginView";
 import SignUpView from "./Components/Login/SignUpView";
 import GLOBALUser from "./Components/GlobalUser";
 import { Alert,Platform,LogBox} from 'react-native';
-import LogOutScreen from './Components/SubComponents/LogOutView';
 import SettingView from './Components/SubComponents/SettingView';
 import Inbox from './Components/SubComponents/Inbox/Inbox';
 import MyTrades from './Components/SubComponents/Trades/MyTrades';
 import NewMessage from "./Components/SubComponents/Inbox/NewMessage";
 import InboxContent from './Components/SubComponents/Inbox/InboxContent';
 import MessageDetails from './Components/SubComponents/Inbox/MessageDetails';
+import BrandScreen from './Components/Login/BrandScreen';
+import ScreenNavigator from './Components/Login/ScreenNavigator';
+import ProfileScreen from "./Components/Settings/ProfileScreen";
+import SettingsList from "./Components/Settings/SettingsList";
 
 
 /*
@@ -45,11 +48,20 @@ const StackNavigator = createStackNavigator(
 const StackNavigatorMessage = createStackNavigator(
     {
         InboxContent: { screen: InboxContent },
-        MessageDetails: { screen: MessageDetails }
+        MessageDetails: { screen: MessageDetails },
+        NewMessage: {screen: NewMessage}
     },
     //Vi siger hvilken klasse der først skal tilgåes af de 3 ovenstående
     {initialRouteKey: 'InboxContent'}
 );
+const StackNavigatorSetting = createStackNavigator(
+    {
+        SettingsList: {screen: SettingsList},
+        ProfileScreen: { screen: ProfileScreen }
+    },
+    {initialRouteKey: 'SettingsList'}
+);
+
 
 //Vi opretter vores tab i bunden
 const TabNavigator = createBottomTabNavigator({
@@ -94,7 +106,7 @@ const TabNavigator = createBottomTabNavigator({
     },
 
     Settings: {
-          screen: SettingView,
+          screen: StackNavigatorSetting,
         navigationOptions: {
               tabBarLabel: "Indstillinger",
             tabBarIcon: ({tintColor}) => (
@@ -102,6 +114,7 @@ const TabNavigator = createBottomTabNavigator({
             )
         },
     },
+
 
     },
 
@@ -116,30 +129,17 @@ const TabNavigator = createBottomTabNavigator({
         size:40
       }
     });
-const LoginNavigator = createBottomTabNavigator({
-    Login: {
-        screen: LoginView,
-        navigationOptions: {
-            tabBarIcon:({tintColor}) => (
-                <AntDesign name={"login"} size={24} color={tintColor}/>
-            )
-        }
-    },
-    SignUp: {
-        screen: SignUpView,
-        navigationOptions: {
-            tabBarIcon:({tintColor}) => (
-                <AntDesign name={"plus"} size={24} color={tintColor}/>
-            )
-        }
-    },
-}
+const LoginBrandNavigator = createStackNavigator({
+
+    BrandScreen:{screen:BrandScreen, navigationOptions:{headerShown:false}},
+    ScreenNavigator:{screen:ScreenNavigator, navigationOptions:{headerShown:false}}
+},
+    {initialRouteKey: 'BrandScreen'}
+
 );
 
 
-
-
-const LoginContainer = createAppContainer(LoginNavigator);
+const LoginContainer = createAppContainer(LoginBrandNavigator);
 const AppContainer = createAppContainer(TabNavigator);
 
 export default class App extends React.Component {

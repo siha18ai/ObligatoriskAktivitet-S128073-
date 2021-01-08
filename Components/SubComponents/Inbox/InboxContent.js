@@ -61,7 +61,7 @@ handleSelectMessage = id => {
                 <View style={styles.cellBorder}/>
 
                 <Button
-                    title={"Ny Besked"}
+                    title={"Ny besked"}
                     onPress={() => this.props.navigation.navigate('NewMessage')}/>
             </View>
 
