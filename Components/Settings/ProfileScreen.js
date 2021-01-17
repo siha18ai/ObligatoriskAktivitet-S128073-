@@ -4,7 +4,6 @@ import {Button, FlatList, ScrollView, StyleSheet, TextInput, View, Alert, Platfo
 import TitleLayout from "../Layout/TitleLayout";
 import MessageListItem from "../SubComponents/Inbox/MessageListItem";
 import RadioButtonRN from "radio-buttons-react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
 
 
 export default class ProfileScreen extends React.Component {
@@ -175,8 +174,8 @@ export default class ProfileScreen extends React.Component {
                         data={radioButtons}
                         value={gender}
                         initial={1}
+                        activeColor={"green"}
                         selectedBtn={this.handleGenderChange}
-                        icon={<Icon name={"check-circle"} size={25} color="#32CD32"/>}
                         />
                     </View>
                     <Button title={"Gem"} onPress={this.saveProfile}/>
