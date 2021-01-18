@@ -42,6 +42,7 @@ export default class AddProduct extends React.Component {
         errorMessage: null,
         isCompleted: false,
         id: firebase.auth().currentUser.uid,
+        pictureName: '',
         brand:'',
         price: '',
         type: '',
@@ -51,6 +52,8 @@ export default class AddProduct extends React.Component {
     };
 
     //vi sætter state i de forskellige attributter fra det brugeren har indtastet
+    handlePictureNameChange = text => this.setState({pictureName: text});
+
     handleBrandChange = text => this.setState({brand: text});
 
     handleSizeChange = text => this.setState({size: text});
@@ -60,9 +63,11 @@ export default class AddProduct extends React.Component {
     handleTypeChange = text => this.setState({type: text});
 
 
+
     handleSave = () => {
         const {
             id,
+            pictureName,
             brand,
             price,
             type,
@@ -76,6 +81,7 @@ export default class AddProduct extends React.Component {
                 .ref('/Products/')
                 .push({
                     id,
+                    pictureName,
                     brand,
                     price,
                     type,
@@ -86,6 +92,7 @@ export default class AddProduct extends React.Component {
 
             this.setState({
                 id: firebase.auth().currentUser.uid,
+                pictureName: '',
                 brand:'',
                 price: '',
                 type: '',
@@ -121,8 +128,8 @@ export default class AddProduct extends React.Component {
         const {currentUser} = firebase.auth();
         this.setState({isUploading: true, errorMessage: null});
         try {
-            const uploadedImageUrl = await this.uploadImage(image)
-            this.setState({uploadedImageUrl})
+            const uploadedImageUrl = await this.uploadImage(image);
+            this.setState({uploadedImageUrl});
             this.setState({isUploading: false, isCompleted: true})
         } catch (e) {
             this.setState({isUploading: false, errorMessage: error.message});
@@ -156,12 +163,13 @@ export default class AddProduct extends React.Component {
 
     uploadImage = async (uri) => {
         const {currentUser} = firebase.auth();
+        const {pictureName} = this.state;
         const response = await fetch(uri);
         const blob = await response.blob();
         var ref = firebase
             .storage()
             .ref()
-            .child(`images/${currentUser.uid}${Date.now()}`);
+            .child(`images/${currentUser.uid}/${pictureName}`);
         await ref.put(blob);
         const uploadedImageUrl = await ref.getDownloadURL();
         return uploadedImageUrl;
@@ -176,6 +184,7 @@ export default class AddProduct extends React.Component {
 
     render() {
         const {
+            pictureName,
             brand,
             price,
             type,
@@ -241,7 +250,18 @@ export default class AddProduct extends React.Component {
                             autoCorrect={false}
                         />
                     </View>
-
+                <View>
+                    <Text> Billedenavn </Text>
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder={"Indtast størrelse fx. M, L osv."}
+                        value={`${brand}${type}`}
+                        onChangeText={this.handlePictureNameChange}
+                        returnKeyType="go"
+                        autoCapitalize="false"
+                        autoCorrect={false}
+                    />
+                </View>
                     <View>
                         <TouchableOpacity onPress={this.takePhoto}>
                             <Text> Tag billede </Text>

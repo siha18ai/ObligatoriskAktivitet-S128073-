@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { View, Text, FlatList, StyleSheet, Button, Platform, Alert, ImageBackground, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Button, Platform, Alert, ImageBackground, ScrollView,
+    SafeAreaView, Image } from 'react-native';
 import firebase from 'firebase';
 import _ from 'lodash';
 import {LogBox} from "react-native";
@@ -15,14 +16,23 @@ console.warn = message => {
 
 export default class ProductDetails extends React.Component {
 
-    state = {product: null};
+    _isMounted = false;
+
+    state = {products: {}};
 
     //Vi får id fra det produkt der er blevet trykket på og loader det fra firebase endpoint
     componentDidMount() {
+        this._isMounted = true;
         const id = this.props.navigation.getParam('id');
 
-        this.loadProduct(id)
 
+        if (this._isMounted) {
+            this.loadProduct(id)
+        }
+
+    }
+    UNSAFE_componentWillMount() {
+        this._isMounted = false;
     }
 
     loadProduct = id => {
@@ -30,8 +40,21 @@ export default class ProductDetails extends React.Component {
             .database()
             .ref('/Products/' + id)
             .on('value', dataObject => {
-                this.setState({product: dataObject.val()});
+                this.setState({products: dataObject.val()});
             });
+    };
+    loadPicture = () => {
+        const {products} = this.state;
+        let imageRef =
+        firebase
+            .storage()
+            .ref(`images/${products.id}/${products.pictureName}`);
+        imageRef
+            .getDownloadURL()
+            .then((url) => {
+        this.setState({productImageURL: url});
+        })
+            .catch((e) => console.log('getting downloadURL of image error =>', e));
     };
 
     handleEdit = () => {
@@ -73,15 +96,15 @@ export default class ProductDetails extends React.Component {
 
     render() {
         //HVis der er et product skal den returnere nedenståe views og buttons
-        const {product} = this.state;
-        if (!product) {
+        const {products} = this.state;
+        if (!products) {
             return (
                 <Text>
                     No Product
                 </Text>
             )
         }
-        const Photo = this.props
+        const Photo = this.props;
 
         return (
             <SafeAreaView>
@@ -90,29 +113,36 @@ export default class ProductDetails extends React.Component {
                     <ImageBackground
                         source={Photo}
                         style={{width: '100%', height: 270}}
-                        imageStyle={{borderBottomEndRadius: 65}}
                     >
                     </ImageBackground>
                 </View>
                 <View>
                     <Text>Beskrivelse</Text>
-                    <Text>{product.brand}</Text>
+                    <Text>{products.brand}</Text>
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.label}> Brand </Text>
-                    <Text style={styles.value}> {product.brand} </Text>
+                    <Text style={styles.value}> {products.brand} </Text>
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.label}> Size </Text>
-                    <Text style={styles.value}> {product.size} </Text>
+                    <Text style={styles.value}> {products.size} </Text>
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.label}> Price </Text>
-                    <Text style={styles.value}> {product.price} </Text>
+                    <Text style={styles.value}> {products.price} </Text>
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.label}> Type </Text>
-                    <Text style={styles.value}> {product.type} </Text>
+                    <Text style={styles.value}> {products.type} </Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.label}> Billede navn </Text>
+                    <Text style={styles.value}> {products.pictureName} </Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.label}> Billede </Text>
+                    <Image style={styles.img} source={this.loadPicture()}/>
                 </View>
                 <View style={styles.row}>
                     <Buttons text="Edit" onPress={this.handleEdit}/>
@@ -133,4 +163,8 @@ const styles = StyleSheet.create({
     },
     label: { width: 100, fontWeight: 'bold' },
     value: { flex: 1 },
+    img: {
+        width: 100,
+        height: 200
+    },
 });
