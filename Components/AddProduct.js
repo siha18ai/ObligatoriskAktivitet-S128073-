@@ -150,7 +150,7 @@ export default class AddProduct extends React.Component {
                     Alert.alert(error);
                 });
         }
-    }
+    };
 
     handleSaveToCameraRoll = async uri => {
         console.log(1);
@@ -169,7 +169,7 @@ export default class AddProduct extends React.Component {
         var ref = firebase
             .storage()
             .ref()
-            .child(`images/${currentUser.uid}/${pictureName}`);
+            .child('images/'+currentUser.uid+'/'+pictureName);
         await ref.put(blob);
         const uploadedImageUrl = await ref.getDownloadURL();
         return uploadedImageUrl;
@@ -192,8 +192,7 @@ export default class AddProduct extends React.Component {
             image,
             isCompleted,
             isUploading,
-            errorMessage,
-            uploadedImageUri,
+            errorMessage
         } = this.state;
         return(
             <ScrollView style={styles.container}>
@@ -255,7 +254,7 @@ export default class AddProduct extends React.Component {
                     <TextInput
                         style={styles.searchInput}
                         placeholder={"Indtast størrelse fx. M, L osv."}
-                        value={`${brand}${type}`}
+                        value={pictureName}
                         onChangeText={this.handlePictureNameChange}
                         returnKeyType="go"
                         autoCapitalize="false"
@@ -263,21 +262,17 @@ export default class AddProduct extends React.Component {
                     />
                 </View>
                     <View>
-                        <TouchableOpacity onPress={this.takePhoto}>
-                            <Text> Tag billede </Text>
-                        </TouchableOpacity>
+                        <Buttons onPress={this.takePhoto} text={"Tag billede"}/>
                     </View>
 
                     <View>
-                        <TouchableOpacity onPress={this.pickImage}>
-                            <Text> Vælg billede </Text>
-                        </TouchableOpacity>
+                        <Buttons onPress={this.pickImage} text={"Vælg billede"}/>
                         {image && (
                             <View>
                                 <Image source={{ uri: image}} style={styles.image}/>
-                                <Button
+                                <Buttons
                                     disabled={isUploading}
-                                    title="Upload"
+                                    text={"Upload"}
                                     onPress={this.handleUploadImage} />
                             </View>
                         )}
@@ -287,9 +282,9 @@ export default class AddProduct extends React.Component {
                     </View>
 
                     <View>
-                        <TouchableOpacity onPress={this.handleSave}>
+                        <Buttons onPress={this.handleSave}>
                             <Text> Opret produkt </Text>
-                        </TouchableOpacity>
+                        </Buttons>
                     </View>
 
             </ScrollView>

@@ -18,7 +18,10 @@ export default class ProductDetails extends React.Component {
 
     _isMounted = false;
 
-    state = {products: {}};
+    state = {
+        products: null,
+        profileImageUrl: ''
+    };
 
     //Vi får id fra det produkt der er blevet trykket på og loader det fra firebase endpoint
     componentDidMount() {
@@ -31,9 +34,6 @@ export default class ProductDetails extends React.Component {
         }
 
     }
-    UNSAFE_componentWillMount() {
-        this._isMounted = false;
-    }
 
     loadProduct = id => {
         firebase
@@ -42,19 +42,6 @@ export default class ProductDetails extends React.Component {
             .on('value', dataObject => {
                 this.setState({products: dataObject.val()});
             });
-    };
-    loadPicture = () => {
-        const {products} = this.state;
-        let imageRef =
-        firebase
-            .storage()
-            .ref(`images/${products.id}/${products.pictureName}`);
-        imageRef
-            .getDownloadURL()
-            .then((url) => {
-        this.setState({productImageURL: url});
-        })
-            .catch((e) => console.log('getting downloadURL of image error =>', e));
     };
 
     handleEdit = () => {
@@ -104,18 +91,26 @@ export default class ProductDetails extends React.Component {
                 </Text>
             )
         }
-        const Photo = this.props;
+        let imageRef = firebase.storage().ref('/images/' + products.id + '/' + products.pictureName);
+        imageRef
+            .getDownloadURL()
+            .then((url) => {
+                //from url you can fetched the uploaded image easily
+                this.setState({profileImageUrl: url});
+                console.log(url)
+            })
+            .catch((e) => console.log('getting downloadURL of image error => ', e));
 
         return (
             <SafeAreaView>
             <ScrollView>
                 <View>
                     <ImageBackground
-                        source={Photo}
+                        source={{uri: this.state.profileImageUrl}}
                         style={{width: '100%', height: 270}}
-                    >
-                    </ImageBackground>
+                    />
                 </View>
+
                 <View>
                     <Text>Beskrivelse</Text>
                     <Text>{products.brand}</Text>
@@ -139,10 +134,6 @@ export default class ProductDetails extends React.Component {
                 <View style={styles.row}>
                     <Text style={styles.label}> Billede navn </Text>
                     <Text style={styles.value}> {products.pictureName} </Text>
-                </View>
-                <View style={styles.row}>
-                    <Text style={styles.label}> Billede </Text>
-                    <Image style={styles.img} source={this.loadPicture()}/>
                 </View>
                 <View style={styles.row}>
                     <Buttons text="Edit" onPress={this.handleEdit}/>
