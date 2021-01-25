@@ -91,22 +91,25 @@ export default class ProductDetails extends React.Component {
                 </Text>
             )
         }
+         /*
         let imageRef = firebase.storage().ref('/images/' + products.id + '/' + products.pictureName);
         imageRef
             .getDownloadURL()
             .then((url) => {
                 //from url you can fetched the uploaded image easily
                 this.setState({profileImageUrl: url});
-                console.log(url)
+                //console.log(url)
             })
             .catch((e) => console.log('getting downloadURL of image error => ', e));
+
+          */
 
         return (
             <SafeAreaView>
             <ScrollView>
                 <View>
                     <ImageBackground
-                        source={{uri: this.state.profileImageUrl}}
+                        source={{uri: products.uploadedImageUri}}
                         style={{width: '100%', height: 270}}
                     />
                 </View>

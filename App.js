@@ -61,6 +61,12 @@ const StackNavigatorSetting = createStackNavigator(
     },
     {initialRouteKey: 'SettingsList'}
 );
+const StackNavigatorTrades = createStackNavigator(
+    {
+        MyTradesScreen: {screen: MyTrades},
+        ProductDetails: {screen: ProductDetails}
+    }
+)
 
 
 //Vi opretter vores tab i bunden
@@ -96,7 +102,7 @@ const TabNavigator = createBottomTabNavigator({
         },
       },
     Trades: {
-        screen: MyTrades,
+        screen: StackNavigatorTrades,
         navigationOptions: {
             tabBarLabel: "Handler",
             tabBarIcon: ({tintColor}) => (

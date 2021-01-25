@@ -48,7 +48,7 @@ export default class AddProduct extends React.Component {
         type: '',
         size:'',
         imageUri:'',
-        uploadedImageUri: null,
+        uploadedImageUri: '',
     };
 
     //vi sætter state i de forskellige attributter fra det brugeren har indtastet
@@ -61,6 +61,9 @@ export default class AddProduct extends React.Component {
     handlePriceChange = text => this.setState({price: text});
 
     handleTypeChange = text => this.setState({type: text});
+
+    handleUploadImageChange = text => this.setState({uploadedImageUri: text});
+
 
 
 
@@ -88,6 +91,8 @@ export default class AddProduct extends React.Component {
                     size,
                     uploadedImageUri
                 });
+            console.log("Reference: " + reference);
+            console.log("UploadedImageUri: " + uploadedImageUri);
             Alert.alert("Dit produkt er nu oprettet");
 
             this.setState({
@@ -97,7 +102,7 @@ export default class AddProduct extends React.Component {
                 price: '',
                 type: '',
                 size: '',
-                uploadedImageUri: null
+                uploadedImageUri: ''
                 });
         } catch (e) {
             Alert.alert(`Error: ${e.message}`);
@@ -129,7 +134,7 @@ export default class AddProduct extends React.Component {
         this.setState({isUploading: true, errorMessage: null});
         try {
             const uploadedImageUrl = await this.uploadImage(image);
-            this.setState({uploadedImageUrl});
+            this.handleUploadImageChange(uploadedImageUrl);
             this.setState({isUploading: false, isCompleted: true})
         } catch (e) {
             this.setState({isUploading: false, errorMessage: error.message});
