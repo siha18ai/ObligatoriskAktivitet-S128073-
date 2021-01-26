@@ -9,7 +9,6 @@ import {
     Alert,
     Image
 } from 'react-native';
-import TitleLayout from "../Layout/TitleLayout";
 import {Buttons} from "../Buttons";
 
 const Logo2 = require("../../assets/PORNHUBPNG.png");

@@ -24,6 +24,7 @@ import BrandScreen from './Components/Login/BrandScreen';
 import ScreenNavigator from './Components/Login/ScreenNavigator';
 import ProfileScreen from "./Components/Settings/ProfileScreen";
 import SettingsList from "./Components/Settings/SettingsList";
+import ChatScreen from "./Components/SubComponents/Beskeder/ChatScreen";
 
 
 /*
@@ -47,12 +48,10 @@ const StackNavigator = createStackNavigator(
 );
 const StackNavigatorMessage = createStackNavigator(
     {
-        InboxContent: { screen: InboxContent },
-        MessageDetails: { screen: MessageDetails },
-        NewMessage: {screen: NewMessage}
+        ChatScreen: { screen: ChatScreen }
     },
     //Vi siger hvilken klasse der først skal tilgåes af de 3 ovenstående
-    {initialRouteKey: 'InboxContent'}
+    {initialRouteKey: 'ChatScreen'}
 );
 const StackNavigatorSetting = createStackNavigator(
     {

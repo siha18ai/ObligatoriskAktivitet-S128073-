@@ -13,9 +13,12 @@ export default class ProductList extends React.Component {
 
     //Vi istantiere dataen på vores endpoint i firebase
     componentDidMount() {
+        const {currentUser} = firebase.auth();
         firebase
             .database()
             .ref('/Products')
+            .orderByChild("/id")
+            .equalTo(!currentUser.uid)
             .on('value', snapshot => {
                 this.setState({products: snapshot.val()});
             });
@@ -32,7 +35,7 @@ export default class ProductList extends React.Component {
         const {products} = this.state;
 
         if (!products) {
-            return <Text> Du skal være logget ind eller have oprettet et produkt </Text>;
+            return <Text> Der er ingen produkter at exploere endnu </Text>;
         }
         //Opretter array til vores flatlist
         const productArray = Object.values(products);

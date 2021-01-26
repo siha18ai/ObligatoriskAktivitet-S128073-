@@ -91,8 +91,6 @@ export default class AddProduct extends React.Component {
                     size,
                     uploadedImageUri
                 });
-            console.log("Reference: " + reference);
-            console.log("UploadedImageUri: " + uploadedImageUri);
             Alert.alert("Dit produkt er nu oprettet");
 
             this.setState({
