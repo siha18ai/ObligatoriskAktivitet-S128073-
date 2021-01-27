@@ -22,12 +22,10 @@ export default class ProductList extends React.Component {
             });
     }
 
-
     //Vi opretter en metode der navigere os til det
     handleSelectProduct = id => {
         this.props.navigation.navigate('ProductDetails', {id});
     };
-
 
     render() {
         const {products} = this.state;
