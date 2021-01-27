@@ -17,8 +17,6 @@ export default class ProductList extends React.Component {
         firebase
             .database()
             .ref('/Products')
-            .orderByChild("/id")
-            .equalTo(!currentUser.uid)
             .on('value', snapshot => {
                 this.setState({products: snapshot.val()});
             });
