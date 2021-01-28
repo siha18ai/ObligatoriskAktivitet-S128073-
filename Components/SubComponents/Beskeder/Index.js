@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
+import {View, Text, Image, StyleSheet, FlatList, Button, Alert} from 'react-native';
 import Row, {Separator} from "../../Row";
 import firebase from "firebase";
+import {Buttons} from "../../Buttons";
 
 export default class ChatListItem extends React.Component{
     state = {
@@ -17,12 +18,26 @@ export default class ChatListItem extends React.Component{
             });
     }
 
+    handleSelectConversation = () => {
+        this.props.navigation.navigate('Chatroom');
+    };
+
     render() {
         const {conversations} = this.state;
 
         if (!conversations) {
-            return <Text> Ingen beskeder endnu </Text>;
+            return (
+                <View style={styles.container}>
+                    <View style={styles.view1}>
+                        <Text> Ingen beskeder endnu </Text>
+                    </View>
+                    <View style={styles.view2}>
+                        <Buttons onPress={this.handleSelectConversation} text="Ny samtale"/>
+                    </View>
+                </View>
+            )
         }
+
         //Opretter array til vores flatlist
         const conversationsArray = Object.values(conversations);
 
@@ -32,47 +47,42 @@ export default class ChatListItem extends React.Component{
         const {chatRoom} = this.props;
 
         return (
-            <FlatList
-                data={conversationsArray}
-                keyExtractor={(item, index) => conversationKeys[index]}
-                renderItem={({item, index}) => {
+            <View style={styles.view1}>
+                <View style={styles.view1}>
+                <FlatList
+                    data={conversationsArray}
+                    keyExtractor={(item, index) => conversationKeys[index]}
+                    renderItem={({item, index}) => {
 
-                    return (
-                        <Row
-                            title={item.username}
-                            price={item.lastMessage}
-                            Photo={{uri: "https://www.studentproblems.com/wp-content/uploads/2020/04/Untitled-3-6.jpg"}}
-                        />
-                    );
-                }}
+                        return (
+                            <Row
+                                title={item.username}
+                                price={item.lastMessage}
+                                onSelect={this.handleSelectConversation}
+                                Photo={{uri: "https://www.studentproblems.com/wp-content/uploads/2020/04/Untitled-3-6.jpg"}}
+                            />
+                        );
+                    }}
                     ItemSeparatorComponent={Separator}
                     ListHeaderComponent={() => <Separator/>}
                     ListFooterComponent={() => <Separator/>}
                     contentContainerStyle={{paddingVertical: 20}}
                 />
-            /*
-            <View styles={styles.container}>
-                <View styles={styles.leftContainer}>
-                    <Image source={{uri: "https://www.studentproblems.com/wp-content/uploads/2020/04/Untitled-3-6.jpg"}} styles={styles.image}/>
-                    <View styles={styles.midContainer}>
-                        <Text style={styles.username}>Simse</Text>
-                        <Text style={styles.lastMessage}>{chatRoom.lastMessage.content}</Text>
-                    </View>
                 </View>
-                <Text style={styles.time}>Yesterday</Text>
+                <View style={styles.view2}>
+                    <Button onPress={() => Alert.alert('Todo')}
+                    title = "hey"/>
+                </View>
             </View>
-
-             */
         )
     }
 };
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        width: '100%',
-        justifyContent: 'space-between',
-        padding: 10,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     leftContainer: {
         flexDirection: 'row'
@@ -98,4 +108,12 @@ const styles = StyleSheet.create({
     midContainer: {
         justifyContent: 'space-around'
     },
+    view1: {
+        flex: 3,
+        justifyContent: 'space-around'
+    },
+    view2: {
+        flex: 1,
+        justifyContent: 'space-around'
+    }
 });

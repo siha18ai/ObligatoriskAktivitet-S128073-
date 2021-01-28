@@ -285,11 +285,8 @@ export default class AddProduct extends React.Component {
                     </View>
 
                     <View>
-                        <Buttons onPress={this.handleSave}>
-                            <Text> Opret produkt </Text>
-                        </Buttons>
+                        <Buttons onPress={this.handleSave} text ={"Opret produkt"}/>
                     </View>
-
             </ScrollView>
         )
     }

@@ -6,7 +6,6 @@ import {View, Text} from './Themed'
 export default function ChatsScreen() {
     return (
         <View style={styles.container}>
-            <Text>Hey</Text>
             <ChatListItem chatRoom={{lastMessage: {content: "Hello"}}}/>
         </View>
     );

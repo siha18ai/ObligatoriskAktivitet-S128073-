@@ -20,7 +20,6 @@ export default class ProfileScreen extends React.Component {
         name: '',
         address: '',
         telephone: '',
-        unique_attribute_id: '',
         gender: '',
         radio_button: ''
     }
@@ -73,10 +72,11 @@ export default class ProfileScreen extends React.Component {
     //Gem de indtastede brugerinformationer
     saveProfile = async () =>{
         const {navigation} = this.props;
-        const {id, email, password, name, address, telephone, unique_attribute_id, gender} = this.state;
+        const {id, email, password, name, address, telephone, gender} = this.state;
         const currentEmail = firebase.auth().currentUser.email;
         const newEmail = email;
         const currentPassword = password;
+        const userId = firebase.auth().currentUser.uid;
 
         if (currentEmail != newEmail) {
 
@@ -84,7 +84,7 @@ export default class ProfileScreen extends React.Component {
 
         try {
             //Når der ikke er noget data at pushe op
-            if (!unique_attribute_id) {
+            if (!userId) {
                 const reference = firebase
                     .database()
                     .ref('/UserAttributes/'+id)
@@ -103,7 +103,7 @@ export default class ProfileScreen extends React.Component {
                 try {
                     await firebase
                         .database()
-                        .ref('/UserAttributes/'+id+"/"+unique_attribute_id)
+                        .ref('/UserAttributes/'+id)
                         .update({id, email, name, address, telephone, gender});
                     if (Platform.OS != "web") {
                         Alert.alert("Dine profil informationer er nu opdateret");
