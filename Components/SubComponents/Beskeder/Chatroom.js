@@ -26,7 +26,7 @@ export default class ChatRoom extends React.Component{
         firebase
             .database()
             .ref('/UserAttributes')
-            .orderByChild("/id")
+            .orderByChild("/name")
             .startAt(this.state.søgeord)
             .on('value', snapshot => {
                 this.setState({users: snapshot.val()});
@@ -51,7 +51,7 @@ export default class ChatRoom extends React.Component{
                         <Buttons text="Søg" onPress={() => console.log("Todo")}/>
                     </View>
                     <View Style={styles.view1}>
-                        <Text> Der er ingen produkter at exploere endnu </Text>
+                        <Text> Der er ingen personer som har oprettet sig endnu </Text>
                     </View>
                 </View>
             )
