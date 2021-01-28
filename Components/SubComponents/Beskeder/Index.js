@@ -19,7 +19,7 @@ export default class ChatListItem extends React.Component{
     }
 
     handleSelectConversation = () => {
-        this.props.navigation.navigate('Chatroom');
+        this.props.navigation.navigate('FindPersoner');
     };
 
     render() {
@@ -44,7 +44,7 @@ export default class ChatListItem extends React.Component{
         //istantierer vores unikke nøgle som er id'erne i produkter
         const conversationKeys = Object.keys(conversations);
 
-        const {chatRoom} = this.props;
+        //const {chatRoom} = this.props;
 
         return (
             <View style={styles.view1}>

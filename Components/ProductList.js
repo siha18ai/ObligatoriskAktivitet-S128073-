@@ -12,17 +12,22 @@ export default class ProductList extends React.Component {
     state = {
         products: {},
         productsTilAfhandling: {},
-        activeSlide: 0,
+        id: firebase.auth().currentUser.uid
     };
 
     //Vi istantiere dataen på vores endpoint i firebase
     componentDidMount() {
-        console.log("ComponentDidMount: " + this.state.activeSlide);
         firebase
             .database()
             .ref('/Products')
             .on('value', snapshot => {
-                this.setState({products: snapshot.val()});
+                let produkter = Object.values(snapshot.val());
+                for(let i = 0; i < produkter.length; i++){
+                    if(produkter[i].id == this.state.id){
+                        produkter.splice(i, 1)
+                    }
+                }
+                this.setState({products: produkter});
             });
     }
 
@@ -32,12 +37,8 @@ export default class ProductList extends React.Component {
         this.props.navigation.navigate('ProductDetails', {id});
     };
 
-
-
-
     render() {
         const {products} = this.state;
-        const nummer = this.state.activeSlide;
 
         if (!products) {
             return <Text> Der er ingen produkter at exploere endnu </Text>;
@@ -99,4 +100,4 @@ const styles = StyleSheet.create({
         textAlign: 'center',
 
     },
-})
+});

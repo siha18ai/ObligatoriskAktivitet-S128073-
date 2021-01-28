@@ -25,8 +25,9 @@ import ScreenNavigator from './Components/Login/ScreenNavigator';
 import ProfileScreen from "./Components/Settings/ProfileScreen";
 import SettingsList from "./Components/Settings/SettingsList";
 import ChatScreen from "./Components/SubComponents/Beskeder/ChatScreen";
-import Chatroom from "./Components/SubComponents/Beskeder/Chatroom";
+import FindPersoner from "./Components/SubComponents/Beskeder/FindPersoner";
 import ChatListItem from "./Components/SubComponents/Beskeder/Index";
+import Chatroom from "./Components/SubComponents/Beskeder/Chatroom";
 
 
 /*
@@ -48,10 +49,16 @@ const StackNavigator = createStackNavigator(
     //Vi siger hvilken klasse der først skal tilgåes af de 3 ovenstående
     {initialRouteKey: 'ProductList'}
 );
+
+
 const StackNavigatorMessage = createStackNavigator(
     {
-        ChatListItem: { screen: ChatListItem },
-        Chatroom: {screen: Chatroom}
+        ChatListItem: { screen: ChatListItem},
+        FindPersoner: {screen: FindPersoner},
+        Chatroom: {screen: Chatroom ,
+        navigationOptions:  {
+            headerTitle: 'Chatten'
+        }},
     },
     //Vi siger hvilken klasse der først skal tilgåes af de 3 ovenstående
     {initialRouteKey: 'ChatListItem'}
