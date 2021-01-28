@@ -13,6 +13,7 @@ export default class MyTrades extends Component{
 
     //Vi istantiere dataen på vores endpoint i firebase
     componentDidMount() {
+
         const {currentUser} = firebase.auth();
         firebase
             .database()

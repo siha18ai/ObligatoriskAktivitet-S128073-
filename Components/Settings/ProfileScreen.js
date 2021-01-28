@@ -58,6 +58,7 @@ export default class ProfileScreen extends React.Component {
                         this.setState({name, address, telephone, gender, unique_attribute_id})
                     }
                 });
+
         } catch (e) {
             console.log("Fejl på hentning af brugere", e)
         }
