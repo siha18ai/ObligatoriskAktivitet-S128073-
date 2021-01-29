@@ -41,8 +41,13 @@ const styles = StyleSheet.create({
 });
 export default class Row extends React.Component{
     handlePress = () => {
-        const {id, onSelect, name} = this.props
-        onSelect(id, name);
+        const {id, onSelect, name} = this.props;
+        if(!name){
+            onSelect(id);
+        }
+        else{
+            onSelect(id, name);
+        }
     };
     render() {
         const {title, price, Photo } = this.props

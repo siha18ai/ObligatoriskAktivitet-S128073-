@@ -6,9 +6,9 @@ import {Buttons} from "../../Buttons";
 
 export default class ChatMessage extends React.Component {
     render() {
-        const {message, Photo } = this.props;
+        const {message } = this.props;
         return (
-            <Text>{message.content}</Text>
+            <Text>{message}</Text>
         );
     }
 }

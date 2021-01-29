@@ -11,6 +11,7 @@ export default class ProductList extends React.Component {
     //Sætter products til at være et state så vi kan give den værdier
     state = {
         products: {},
+        alleProdukter: {},
         productsTilAfhandling: {},
         id: firebase.auth().currentUser.uid
     };
@@ -21,19 +22,24 @@ export default class ProductList extends React.Component {
             .database()
             .ref('/Products')
             .on('value', snapshot => {
+                /*
+                this.setState({alleProdukter: snapshot.val()})
                 let produkter = Object.values(snapshot.val());
-                for(let i = 0; i < produkter.length; i++){
-                    if(produkter[i].id == this.state.id){
+                for (let i = 0; i < produkter.length; i++) {
+                    if (produkter[i].id == this.state.id) {
                         produkter.splice(i, 1)
                     }
                 }
-                this.setState({products: produkter});
+
+                 */
+                this.setState({products: snapshot.val()});
             });
     }
 
 
     //Vi opretter en metode der navigere os til det
     handleSelectProduct = id => {
+        console.log("ID productlist: " + id);
         this.props.navigation.navigate('ProductDetails', {id});
     };
 
@@ -46,7 +52,7 @@ export default class ProductList extends React.Component {
         //Opretter array til vores flatlist
         const productArray = Object.values(products);
 
-        const productKeys = Object.keys(products);
+        const productKeys = Object.keys(products)
 
 
         //Returnerer flatlist sammen med list item, som gør at når vi trykker på dem at der sker noget
@@ -62,20 +68,20 @@ export default class ProductList extends React.Component {
                         const price = `${item.price}`;
                         const image = `${item.uploadedImageUri}`;
                         return (
-                        <Row
-                        title={name}
-                        price={price}
-                        Photo={{uri: image}}
-                        id={productKeys[index]}
-                        onSelect={this.handleSelectProduct}
-                        />
+                            <Row
+                                title={name}
+                                price={price}
+                                Photo={{uri: image}}
+                                id={productKeys[index]}
+                                onSelect={this.handleSelectProduct}
+                            />
                         );
                     }}
-                        ItemSeparatorComponent={Separator}
-                        ListHeaderComponent={() => <Separator/>}
-                        ListFooterComponent={() => <Separator/>}
-                        contentContainerStyle={{paddingVertical: 20}
-                        }
+                    ItemSeparatorComponent={Separator}
+                    ListHeaderComponent={() => <Separator/>}
+                    ListFooterComponent={() => <Separator/>}
+                    contentContainerStyle={{paddingVertical: 20}
+                    }
                     loop={false}
                     layout={'tinder'}
                     enableSnap={true}

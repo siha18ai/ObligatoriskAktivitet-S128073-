@@ -3,9 +3,8 @@ import React from 'react';
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import ProductList from './Components/ProductList';
 import { createStackNavigator } from 'react-navigation-stack';
-import {AntDesign} from '@expo/vector-icons';
-import {MaterialCommunityIcons} from '@expo/vector-icons';
-import {createAppContainer} from "react-navigation";
+import {AntDesign, MaterialIcons, FontAwesome5, MaterialCommunityIcons, Octicons} from '@expo/vector-icons';
+import {createAppContainer, getActiveChildNavigationOptions} from "react-navigation";
 import firebase from 'firebase';
 import ProductDetails from "./Components/SubComponents/ProductDetails";
 import AddProduct from "./Components/AddProduct";
@@ -13,7 +12,7 @@ import EditProduct from "./Components/SubComponents/EditProduct";
 import LoginView from "./Components/Login/LoginView";
 import SignUpView from "./Components/Login/SignUpView";
 import GLOBALUser from "./Components/GlobalUser";
-import { Alert,Platform,LogBox} from 'react-native';
+import { Alert,Platform,LogBox, Text, View} from 'react-native';
 import SettingView from './Components/SubComponents/SettingView';
 import Inbox from './Components/SubComponents/Inbox/Inbox';
 import MyTrades from './Components/SubComponents/Trades/MyTrades';
@@ -28,6 +27,7 @@ import ChatScreen from "./Components/SubComponents/Beskeder/ChatScreen";
 import FindPersoner from "./Components/SubComponents/Beskeder/FindPersoner";
 import ChatListItem from "./Components/SubComponents/Beskeder/Index";
 import Chatroom from "./Components/SubComponents/Beskeder/Chatroom";
+import {Appbar} from "react-native-paper";
 
 
 /*
@@ -49,16 +49,37 @@ const StackNavigator = createStackNavigator(
     //Vi siger hvilken klasse der først skal tilgåes af de 3 ovenstående
     {initialRouteKey: 'ProductList'}
 );
+const headerRight = () =>{
+    return(
+        <View>
+            <MaterialCommunityIcons name={"axis-z-arrow-lock"}/>
+        </View>
+    )
+}
 
 
 const StackNavigatorMessage = createStackNavigator(
     {
-        ChatListItem: { screen: ChatListItem},
+        ChatListItem: {screen: ChatListItem},
         FindPersoner: {screen: FindPersoner},
-        Chatroom: {screen: Chatroom ,
-        navigationOptions:  {
-            headerTitle: 'Chatten'
-        }},
+        Chatroom: {
+            screen: Chatroom,
+            navigationOptions: ({navigation}) => ({
+                headerTitle: navigation.getParam('name'),
+                headerRight: () => (
+                    <View Style={{
+                        flexDirection: 'row',
+                        width: 100,
+                        justifyContent: 'space-between',
+                        marginRight: 10,
+                    }}>
+
+                        <MaterialCommunityIcons name="dots-vertical" size={22} color={'black'}/>
+
+                    </View>
+                )
+            })
+        },
     },
     //Vi siger hvilken klasse der først skal tilgåes af de 3 ovenstående
     {initialRouteKey: 'ChatListItem'}

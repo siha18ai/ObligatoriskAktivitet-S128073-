@@ -27,8 +27,7 @@ export default class ProductDetails extends React.Component {
     componentDidMount() {
         this._isMounted = true;
         const id = this.props.navigation.getParam('id');
-
-
+        console.log("ID: " + id);
         if (this._isMounted) {
             this.loadProduct(id)
         }
