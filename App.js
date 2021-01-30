@@ -9,25 +9,16 @@ import firebase from 'firebase';
 import ProductDetails from "./Components/SubComponents/ProductDetails";
 import AddProduct from "./Components/AddProduct";
 import EditProduct from "./Components/SubComponents/EditProduct";
-import LoginView from "./Components/Login/LoginView";
-import SignUpView from "./Components/Login/SignUpView";
 import GLOBALUser from "./Components/GlobalUser";
 import { Alert,Platform,LogBox, Text, View} from 'react-native';
-import SettingView from './Components/SubComponents/SettingView';
-import Inbox from './Components/SubComponents/Inbox/Inbox';
 import MyTrades from './Components/SubComponents/Trades/MyTrades';
-import NewMessage from "./Components/SubComponents/Inbox/NewMessage";
-import InboxContent from './Components/SubComponents/Inbox/InboxContent';
-import MessageDetails from './Components/SubComponents/Inbox/MessageDetails';
 import BrandScreen from './Components/Login/BrandScreen';
 import ScreenNavigator from './Components/Login/ScreenNavigator';
 import ProfileScreen from "./Components/Settings/ProfileScreen";
 import SettingsList from "./Components/Settings/SettingsList";
-import ChatScreen from "./Components/SubComponents/Beskeder/ChatScreen";
 import FindPersoner from "./Components/SubComponents/Beskeder/FindPersoner";
 import ChatListItem from "./Components/SubComponents/Beskeder/Index";
 import Chatroom from "./Components/SubComponents/Beskeder/Chatroom";
-import {Appbar} from "react-native-paper";
 
 
 /*

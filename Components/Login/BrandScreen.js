@@ -3,6 +3,7 @@ import {View, ImageBackground, Image} from 'react-native';
 
 const bg=require('../../assets/FodboldBørsen_Background.png');
 const logo=require('../../assets/PORNHUBPNG.png');
+const SportsBørsen=require('../../assets/Sportsbørsen.png');
 export default class BrandScreen extends React.Component {
 
     constructor(props) {
@@ -18,7 +19,7 @@ export default class BrandScreen extends React.Component {
                 source={bg}
                 style={{height:'100%', width:'100%'}}>
                 <View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
-                    <Image source={logo} style={{height: 100, alignContent:'center'}}>
+                    <Image source={SportsBørsen} style={{height: 100, alignContent:'center'}}>
 
                     </Image>
 

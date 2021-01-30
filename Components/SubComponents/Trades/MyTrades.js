@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import {Button, StyleSheet, View, Image, Text, FlatList} from 'react-native';
-import { Container, Header, Title, Content, Icon, Left, Right, Body} from "native-base";
-import InboxContent from "../Inbox/Inbox";
 import firebase from "firebase";
 import Row, {Separator} from "../../Row";
 

@@ -9,7 +9,8 @@ export default class FindPersoner extends React.Component{
     state={
         søgeord:'',
         users: {},
-        id: firebase.auth().currentUser.uid
+        id: firebase.auth().currentUser.uid,
+        senderId: firebase.auth().currentUser.uid
     };
 
     componentDidMount() {
@@ -40,7 +41,9 @@ export default class FindPersoner extends React.Component{
             });
     };
 
-    handleSelectPerson = (id, name) => {
+    handleSelectUser = (id, name) => {
+        console.log("Id: " + id);
+        console.log("Name: " + name);
         this.props.navigation.navigate('Chatroom', {id, name});
     };
 
@@ -50,7 +53,13 @@ export default class FindPersoner extends React.Component{
             users
         } = this.state;
 
-        if (!users) {
+        //Opretter array til vores flatlist
+        const usersArray = Object.values(users);
+
+        //istantierer vores unikke nøgle som er id'erne i produkter
+        const usersKeys = Object.keys(users);
+
+        if (usersArray.length === 0) {
             return(
                 <View Style={styles.container}>
                     <View Style={styles.view2}>
@@ -68,11 +77,6 @@ export default class FindPersoner extends React.Component{
                 </View>
             )
         }
-        //Opretter array til vores flatlist
-        const usersArray = Object.values(users);
-
-        //istantierer vores unikke nøgle som er id'erne i produkter
-        const usersKeys = Object.keys(users);
 
         return(
             <View Style={styles.container}>
@@ -99,8 +103,8 @@ export default class FindPersoner extends React.Component{
                                     price={email}
                                     id={id}
                                     name={name}
-                                    Photo={{uri: "https://www.studentproblems.com/wp-content/uploads/2020/04/Untitled-3-6.jpg"}}
-                                    onSelect={this.handleSelectPerson}
+                                    Photo={{uri: item.billede}}
+                                    onSelect={this.handleSelectUser}
                                 />
                             );
                         }}

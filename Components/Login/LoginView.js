@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {Buttons} from "../Buttons";
 
-const Logo2 = require("../../assets/PORNHUBPNG.png");
+const Sportsbørsen = require("../../assets/Sportsbørsen.png")
 
 
 
@@ -43,7 +43,7 @@ export default class LoginView extends React.Component {
         const { email, password, errorMessage } = this.state;
         return (
         <View style={styles.Container}>
-            <Image source={Logo2} style={styles.image}/>
+            <Image source={Sportsbørsen} style={styles.image}/>
             <View style={styles.insideContainer}>
                 <TextInput placeholder="email" value={email} onChangeText={this.handleChangeEmail}
                 style={styles.textInput}/>

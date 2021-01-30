@@ -6,15 +6,72 @@ import {Buttons} from "../../Buttons";
 
 export default class ChatListItem extends React.Component{
     state = {
-        conversations: {},
+        chatsId: {},
+        chatsSenderId: {},
+        brugere: {},
+        id: firebase.auth().currentUser.uid
     };
 
-    componentDidMount() {
+    async componentDidMount() {
+        const {id} = this.state;
+        await this.getUserById(id);
+        await this.getUserBySenderId(id);
+        if(this.state.chatsId.length === 0){}
+        else {
+            await this.getUsers();
+        }
+        if(this.state.chatsSenderId.length === 0){}
+        else {
+            await this.getUsers();
+        }
+    }
+
+    getUserById = async (id) =>{
         firebase
             .database()
-            .ref('/Conversations')
+            .ref('/Chat')
+            .orderByChild('/id')
+            .equalTo(id)
             .on('value', snapshot => {
-                this.setState({conversations: snapshot.val()});
+                this.setState({chats: snapshot.val()})
+            })
+    }
+
+    getUserBySenderId = async (id) => {
+        firebase
+            .database()
+            .ref('/Chat')
+            .orderByChild('/senderId')
+            .equalTo(id)
+            .on('value', snapshot => {
+                this.setState({chatsSenderId: snapshot.val()})
+            });
+    }
+
+    getUsers = async () => {
+        const chats1 = Object.values(this.state.chatsId);
+        const chats2 = Object.values(this.state.chatsSenderId);
+
+        for(let i = 0; i < chats1.length; i++){
+            await this.loadUser(chats1.senderId)
+        }
+        for(let i = 0; i < chats2.length; i++){
+            await this.loadUser(chats2.id)
+        }
+    };
+
+    loadUser = async (id) => {
+        let brugere = this.state.brugere;
+        firebase
+            .database()
+            .ref('/UserAttributes')
+            .orderByChild('/id')
+            .equalTo(id)
+            .on('value', snapshot =>{
+                let result = snapshot.val();
+                let array = Object.values(result);
+                brugere.add(array[0]);
+                this.setState({brugere: brugere})
             });
     }
 
@@ -22,10 +79,20 @@ export default class ChatListItem extends React.Component{
         this.props.navigation.navigate('FindPersoner');
     };
 
-    render() {
-        const {conversations} = this.state;
+    handleSelectPerson = (id, name) => {
+        this.props.navigation.navigate('Chatroom', {id, name})
+    }
 
-        if (!conversations) {
+    render() {
+        const {brugere} = this.state;
+
+        //Opretter array til vores flatlist
+        const brugereArray = Object.values(brugere);
+
+        //istantierer vores unikke nøgle som er id'erne i produkter
+        const brugereKeys = Object.keys(brugere);
+
+        if (brugereArray.length === 0) {
             return (
                 <View style={styles.container}>
                     <View style={styles.view1}>
@@ -38,28 +105,20 @@ export default class ChatListItem extends React.Component{
             )
         }
 
-        //Opretter array til vores flatlist
-        const conversationsArray = Object.values(conversations);
-
-        //istantierer vores unikke nøgle som er id'erne i produkter
-        const conversationKeys = Object.keys(conversations);
-
-        //const {chatRoom} = this.props;
-
         return (
             <View style={styles.view1}>
                 <View style={styles.view1}>
                 <FlatList
-                    data={conversationsArray}
-                    keyExtractor={(item, index) => conversationKeys[index]}
+                    data={brugereArray}
+                    keyExtractor={(item, index) => brugereKeys[index]}
                     renderItem={({item, index}) => {
 
                         return (
                             <Row
-                                title={item.username}
-                                price={item.lastMessage}
+                                title={item.name}
+                                price={item.email}
                                 onSelect={this.handleSelectConversation}
-                                Photo={{uri: "https://www.studentproblems.com/wp-content/uploads/2020/04/Untitled-3-6.jpg"}}
+                                Photo={{uri: item.billede}}
                             />
                         );
                     }}
