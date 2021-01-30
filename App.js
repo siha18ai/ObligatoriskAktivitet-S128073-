@@ -19,6 +19,7 @@ import SettingsList from "./Components/Settings/SettingsList";
 import FindPersoner from "./Components/SubComponents/Beskeder/FindPersoner";
 import ChatListItem from "./Components/SubComponents/Beskeder/Index";
 import Chatroom from "./Components/SubComponents/Beskeder/Chatroom";
+import KundeService from "./Components/Settings/KundeService";
 
 
 /*
@@ -78,7 +79,8 @@ const StackNavigatorMessage = createStackNavigator(
 const StackNavigatorSetting = createStackNavigator(
     {
         SettingsList: {screen: SettingsList},
-        ProfileScreen: { screen: ProfileScreen }
+        ProfileScreen: { screen: ProfileScreen },
+        KundeService: {screen: KundeService}
     },
     {initialRouteKey: 'SettingsList'}
 );
