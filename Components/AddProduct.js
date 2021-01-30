@@ -15,7 +15,8 @@ import {
     AsyncStorage,
     KeyboardAvoidingView,
     Button,
-    ActivityIndicator
+    ActivityIndicator,
+    Picker
 } from 'react-native';
 import firebase from 'firebase';
 import {Body, Container, Header, Title, ActionSheet, Root} from "native-base";
@@ -32,7 +33,7 @@ const width = Dimensions.get('window').width;
 export default class AddProduct extends React.Component {
 
 
-    state= {
+    state = {
         hasCameraRollPermission: null,
         lastPhoto: null,
         galleryImages: null,
@@ -43,12 +44,13 @@ export default class AddProduct extends React.Component {
         isCompleted: false,
         id: firebase.auth().currentUser.uid,
         pictureName: '',
-        brand:'',
+        brand: '',
         price: '',
         type: '',
-        size:'',
-        imageUri:'',
+        size: '',
+        imageUri: '',
         uploadedImageUri: '',
+        sport: ''
     };
 
     //vi sætter state i de forskellige attributter fra det brugeren har indtastet
@@ -64,7 +66,7 @@ export default class AddProduct extends React.Component {
 
     handleUploadImageChange = text => this.setState({uploadedImageUri: text});
 
-
+    handleChangeSport = text => this.setState({sport: text});
 
 
     handleSave = () => {
@@ -75,7 +77,8 @@ export default class AddProduct extends React.Component {
             price,
             type,
             size,
-            uploadedImageUri
+            uploadedImageUri,
+            sport
         } = this.state;
 
         try {
@@ -89,19 +92,20 @@ export default class AddProduct extends React.Component {
                     price,
                     type,
                     size,
-                    uploadedImageUri
+                    uploadedImageUri,
+                    sport
                 });
             Alert.alert("Dit produkt er nu oprettet");
 
             this.setState({
                 id: firebase.auth().currentUser.uid,
                 pictureName: '',
-                brand:'',
+                brand: '',
                 price: '',
                 type: '',
                 size: '',
-                uploadedImageUri: ''
-                });
+                uploadedImageUri: '',
+            });
         } catch (e) {
             Alert.alert(`Error: ${e.message}`);
         }
@@ -121,6 +125,7 @@ export default class AddProduct extends React.Component {
                 console.log(error);
             });
     }
+
     updateCameraRollPermission = async () => {
         const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
         this.setState({hasCameraPermission: status === 'granted'})
@@ -157,7 +162,7 @@ export default class AddProduct extends React.Component {
 
     handleSaveToCameraRoll = async uri => {
         console.log(1);
-        try{
+        try {
             const result = await CameraRoll.saveToCameraRoll(uri, 'photo');
         } catch (e) {
             console.log(e);
@@ -172,7 +177,7 @@ export default class AddProduct extends React.Component {
         var ref = firebase
             .storage()
             .ref()
-            .child('images/'+currentUser.uid+'/'+pictureName);
+            .child('images/' + currentUser.uid + '/' + pictureName);
         await ref.put(blob);
         const uploadedImageUrl = await ref.getDownloadURL();
         return uploadedImageUrl;
@@ -182,7 +187,7 @@ export default class AddProduct extends React.Component {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
         });
-        this.setState({ image: result.uri });
+        this.setState({image: result.uri});
     };
 
     render() {
@@ -195,63 +200,64 @@ export default class AddProduct extends React.Component {
             image,
             isCompleted,
             isUploading,
-            errorMessage
+            errorMessage,
+            sport
         } = this.state;
-        return(
+        return (
             <ScrollView style={styles.container}>
-                    <View>
+                <View>
                     <Text style={styles.header}>
                         Opret dit produkt
                     </Text>
-                    </View>
-                    <KeyboardAvoidingView>
-                            <Text> Produkt brand </Text>
-                            <TextInput
-                                style={styles.searchInput}
-                                placeholder={"Indtast brand"}
-                            value={brand}
-                            onChangeText={this.handleBrandChange}
-                            returnKeyType="go"
-                            autoCapitalize="false"
-                            autoCorrect={false}
-                            />
-                        </KeyboardAvoidingView>
-                        <View>
-                            <Text> Produkt pris </Text>
-                            <TextInput
-                                style={styles.searchInput}
-                                placeholder={"Indtast pris i DKK"}
-                                value={price}
-                                onChangeText={this.handlePriceChange}
-                                returnKeyType="go"
-                                autoCapitalize="false"
-                                autoCorrect={false}
-                            />
-                        </View>
-                    <View>
-                        <Text> Produkt type </Text>
-                        <TextInput
-                            style={styles.searchInput}
-                            placeholder={"Indtast type fx. t-shirt, sweatshirt osv."}
-                            value={type}
-                            onChangeText={this.handleTypeChange}
-                            returnKeyType="go"
-                            autoCapitalize="false"
-                            autoCorrect={false}
-                        />
-                    </View>
-                    <View>
-                        <Text> Produkt størrelse </Text>
-                        <TextInput
-                            style={styles.searchInput}
-                            placeholder={"Indtast størrelse fx. M, L osv."}
-                            value={size}
-                            onChangeText={this.handleSizeChange}
-                            returnKeyType="go"
-                            autoCapitalize="false"
-                            autoCorrect={false}
-                        />
-                    </View>
+                </View>
+                <KeyboardAvoidingView>
+                    <Text> Produkt brand </Text>
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder={"Indtast brand"}
+                        value={brand}
+                        onChangeText={this.handleBrandChange}
+                        returnKeyType="go"
+                        autoCapitalize="false"
+                        autoCorrect={false}
+                    />
+                </KeyboardAvoidingView>
+                <View>
+                    <Text> Produkt pris </Text>
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder={"Indtast pris i DKK"}
+                        value={price}
+                        onChangeText={this.handlePriceChange}
+                        returnKeyType="go"
+                        autoCapitalize="false"
+                        autoCorrect={false}
+                    />
+                </View>
+                <View>
+                    <Text> Produkt type </Text>
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder={"Indtast type fx. t-shirt, sweatshirt osv."}
+                        value={type}
+                        onChangeText={this.handleTypeChange}
+                        returnKeyType="go"
+                        autoCapitalize="false"
+                        autoCorrect={false}
+                    />
+                </View>
+                <View>
+                    <Text> Produkt størrelse </Text>
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder={"Indtast størrelse fx. M, L osv."}
+                        value={size}
+                        onChangeText={this.handleSizeChange}
+                        returnKeyType="go"
+                        autoCapitalize="false"
+                        autoCorrect={false}
+                    />
+                </View>
                 <View>
                     <Text> Billedenavn </Text>
                     <TextInput
@@ -264,281 +270,50 @@ export default class AddProduct extends React.Component {
                         autoCorrect={false}
                     />
                 </View>
-                    <View>
-                        <Buttons onPress={this.takePhoto} text={"Tag billede"}/>
-                    </View>
+                <View>
+                    <Picker
+                        selectedValue={sport}
+                        style={{height: 50, width: 150}}
+                        onValueChange={(itemValue, itemIndex) => this.handleChangeSport(itemValue)}
+                    >
+                        <Picker.Item label="Fodbold" value="Fodbold"/>
+                        <Picker.Item label="Tennis" value="Tennis"/>
+                        <Picker.Item label="Svømning" value="Svømning"/>
+                        <Picker.Item label="Håndbold" value="Håndbold"/>
+                        <Picker.Item label="Volleyball" value="Volleyball"/>
+                        <Picker.Item label="Dans" value="Dans"/>
+                        <Picker.Item label="Ishockey" value="Ishockey"/>
+                        <Picker.Item label="Basketball" value="Basketball"/>
+                        <Picker.Item label="Badminton" value="Badminton"/>
 
-                    <View>
-                        <Buttons onPress={this.pickImage} text={"Vælg billede"}/>
-                        {image && (
-                            <View>
-                                <Image source={{ uri: image}} style={styles.image}/>
-                                <Buttons
-                                    disabled={isUploading}
-                                    text={"Upload"}
-                                    onPress={this.handleUploadImage} />
-                            </View>
-                        )}
-                        {isUploading && <ActivityIndicator/>}
-                        {isCompleted && <Text>Billedet er nu vedhæftet produktet</Text>}
-                        {errorMessage && <Text> {errorMessage} </Text>}
-                    </View>
+                    </Picker>
+                </View>
+                <View>
+                    <Buttons onPress={this.takePhoto} text={"Tag billede"}/>
+                </View>
 
-                    <View>
-                        <Buttons onPress={this.handleSave} text ={"Opret produkt"}/>
-                    </View>
+                <View>
+                    <Buttons onPress={this.pickImage} text={"Vælg billede"}/>
+                    {image && (
+                        <View>
+                            <Image source={{uri: image}} style={styles.image}/>
+                            <Buttons
+                                disabled={isUploading}
+                                text={"Upload"}
+                                onPress={this.handleUploadImage}/>
+                        </View>
+                    )}
+                    {isUploading && <ActivityIndicator/>}
+                    {isCompleted && <Text>Billedet er nu vedhæftet produktet</Text>}
+                    {errorMessage && <Text> {errorMessage} </Text>}
+                </View>
+
+                <View>
+                    <Buttons onPress={this.handleSave} text={"Opret produkt"}/>
+                </View>
             </ScrollView>
         )
     }
-
-
-    /*
-    constructor(props) {
-        super(props);
-        this.state = {
-            fileList: [],
-        }
-    }
-
-
-    onSelectedImage = (image) => {
-        let newDataImg = this.state.fileList;
-        const source = {uri: image.path};
-        let item = {
-            id: Date.now(),
-            url: source,
-            content: image.data
-        };
-        newDataImg.push(item);
-        this.setState({fileList: newDataImg})
-    };
-
-    openCamera = async () => {
-        let permission = await ImagePicker.requestCameraPermissionsAsync();
-
-        if (permission.granted == false) {
-            return;
-        }
-        let picker = await ImagePicker.launchCameraAsync();
-
-        if (picker.cancelled == true) {
-            return;
-        }
-        this.handleSelectedImage({localUri: picker.uri});
-        this.onSelectedImage(this.selectedImage);
-        console.log(picker)
-    };
-
-
-    openImage = async () => {
-        let permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-        if (permission.granted == false) {
-            Alert("Permission to access camera is required");
-            return;
-        }
-
-            let picker = await ImagePicker.launchImageLibraryAsync();
-            console.log(picker);
-/*
-        if (picker.cancelled == true) {
-            return;
-        }
-
-
- */
-/*
-            this.handleSelectedImage({localUri: picker.uri});
-            this.onSelectedImage(this.selectedImage);
-            console.log(picker)
-
-    };
-    onClickAddImage = () => {
-        const BUTTONS = ['Take Photo', 'Choose Photo Library', 'C' +
-        'ancel'];
-        ActionSheet.show(
-            {
-                options: BUTTONS,
-                cancelButtonIndex: 2,
-                title: 'Select a Photo'
-            },
-            buttonIndex => {
-                switch (buttonIndex) {
-                    case 0:
-                        this.openCamera();
-                        break;
-                    case 1:
-                        this.openImage();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        )
-    };
-
-
-    addImage = async () => {
-        const {imageName, uploadUri} = this.state;
-        firebase
-            .storage()
-            .ref(imageName)
-            .put(uploadUri)
-            .then((snapshot) => {
-                console.log(`${imageName} has been successfully uploaded.`);
-            })
-            .catch((e) => console.log('uploading image error =>', e));
-
-    }
-
-
-    //Vi sætter de forskellige attributter i state til at kunne ændres
-    state = {
-        id: firebase.auth().currentUser.uid,
-        brand: '',
-        size: '',
-        price: '',
-        type: '',
-        selectedImage: null,
-    };
-
-    //vi sætter state i de forskellige attributter fra det brugeren har indtastet
-    handleBrandChange = text => this.setState({brand: text});
-
-    handleSizeChange = text => this.setState({size: text});
-
-    handlePriceChange = text => this.setState({price: text});
-
-    handleTypeChange = text => this.setState({type: text});
-
-    handleSelectedImage = image => this.setState({selectedImage: image});
-
-    handleSave = () => {
-        const {id, brand, size, price, type} = this.state;
-        try {
-            //Vi sætter de nye værdier op i firebase
-            const reference = firebase
-                .database()
-                .ref('/Products/')
-                .push({id, brand, size, price, type});
-            Alert.alert('Saved');
-            this.setState({
-                id: firebase.auth().currentUser.uid,
-                brand: '',
-                size: '',
-                price: '',
-                type: '',
-            });
-
-
-        } catch (error) {
-            Alert.Alert(`Error: ${error.message}`);
-        }
-    };
-    renderItem = ({item, index}) => {
-        return (
-            <View>
-                <Image source={item.url} style={styles.itemImage}/>
-            </View>
-        )
-    };
-
-    render() {
-        let {fileList} = this.state;
-        let {content, btnPressStyle, txt, root, itemImage} = styles;
-        return (
-            <Container style={styles.container}>
-                <Header>
-                    <Body>
-                        <Title> Tilføj produkt </Title>
-                    </Body>
-                </Header>
-                <Root style={root}>
-                    <View style={content}>
-                        <FlatList
-                            data={fileList}
-                            renderItem={this.renderItem}
-                            keyExtractor={(item, index) => index.toString()}
-                            extraData={this.state}
-                        />
-                        <TouchableOpacity style={btnPressStyle} onPress={this.onClickAddImage}>
-                            <Text style={txt}>Press Add Image</Text>
-                        </TouchableOpacity>
-                    </View>
-                </Root>
-            </Container>
-        )
-    }
-*/
-/*
-    render() {
-        let {fileList} = this.state;
-        let {content, btnPressStyle, txt, root} = styles;
-
-        //returnerer siden hvor brugeren kan indtaste værdier
-        const {brand, size, price, type} = this.state;
-        const [image, setImage] = useState(null);
-
-        return (
-
-            <Container style={styles.container}>
-                <Header>
-                    <Body>
-                        <Title> Tilføj produkt </Title>
-                    </Body>
-                </Header>
-                <Root style={root}>
-                    <View style={content}>
-                        <FlatList
-                            data={fileList}
-                            renderItem={this.renderItem}
-                            keyExtractor={(item, index) => index.toString()}
-                            extraData={this.state}
-                        />
-                        <TouchableOpacity style={btnPressStyle} onPress={alert("To do")}>
-                            <Text style={txt}>Press Add Image</Text>
-                        </TouchableOpacity>
-                    </View>
-                </Root>
-                <SafeAreaView style={styles.container}>
-                    <ScrollView
-                        contentContainerStyle={{paddingVertical: 20}}
-                        style={{backgroundColor: "#fff"}}>
-                        <View style={styles.row}>
-                            <Text style={styles.label}> Brand </Text>
-                            <TextField
-                                value={brand}
-                                onChangeText={this.handleBrandChange}/>
-                        </View>
-                        <View style={styles.row}>
-                            <Text style={styles.label}> Price </Text>
-                            <TextField
-                                value={price}
-                                onChangeText={this.handlePriceChange}/>
-                        </View>
-                        <View style={styles.row}>
-                            <Text style={styles.label}> Type </Text>
-                            <TextField
-                                value={type}
-                                onChangeText={this.handleTypeChange}/>
-                        </View>
-                        <View style={styles.row}>
-                            <Text style={styles.label}> Size </Text>
-                            <TextField
-                                value={size}
-                                onChangeText={this.handleSizeChange}/>
-                        </View>
-                    </ScrollView>
-                    <Buttons
-                        text="Add product"
-                        onPress={this.handleSave}
-                        style={{marginBottom: 20}}
-                    />
-                </SafeAreaView>
-            </Container>
-        )
-    }
-*/
 }
 
 
@@ -561,19 +336,16 @@ const styles = StyleSheet.create({
 
     },
     searchInput: {
-      margin: 8,
-      paddingHorizontal: 100,
-      backgroundColor: '#ccffff',
-        borderRadius: 10,
-        padding: 12,
-        justifyContent: 'center',
-        textAlign: 'center',
+        borderWidth: 1,
+        margin: 10,
+        padding: 10,
     },
     dropDown: {
         flexDirection: 'row',
         height: 30,
         margin: 10,
-        marginBottom: 20
+        marginBottom: 20,
+        borderWidth: 1
     },
     label2: {
         fontWeight: 'bold',

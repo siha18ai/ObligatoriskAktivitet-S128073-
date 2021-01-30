@@ -34,9 +34,9 @@ Vores product listView hvor vi samler de forskellige screens der skal indgå
  */
 const StackNavigator = createStackNavigator(
     {
-      ProductList: { screen: ProductList },
-      ProductDetails: { screen: ProductDetails },
-      EditProduct: { screen: EditProduct }
+      ProductList: { screen: ProductList, navigationOptions: {headerTitle: 'Udforsk'} },
+      ProductDetails: { screen: ProductDetails , navigationOptions: {headerTitle: 'Produkt'}},
+      EditProduct: { screen: EditProduct, navigationOptions: {headerTitle: 'Ændre produkt'} }
     },
     //Vi siger hvilken klasse der først skal tilgåes af de 3 ovenstående
     {initialRouteKey: 'ProductList'}
@@ -52,8 +52,8 @@ const headerRight = () =>{
 
 const StackNavigatorMessage = createStackNavigator(
     {
-        ChatListItem: {screen: ChatListItem},
-        FindPersoner: {screen: FindPersoner},
+        ChatListItem: {screen: ChatListItem, navigationOptions: {headerTitle: 'Alle samtaler'}},
+        FindPersoner: {screen: FindPersoner, navigationOptions: {headerTitle: 'Ny meddelelse'} },
         Chatroom: {
             screen: Chatroom,
             navigationOptions: ({navigation}) => ({
@@ -78,16 +78,16 @@ const StackNavigatorMessage = createStackNavigator(
 );
 const StackNavigatorSetting = createStackNavigator(
     {
-        SettingsList: {screen: SettingsList},
-        ProfileScreen: { screen: ProfileScreen },
-        KundeService: {screen: KundeService}
+        SettingsList: {screen: SettingsList, navigationOptions: {headerTitle: 'Indstillinger'}},
+        ProfileScreen: { screen: ProfileScreen, navigationOptions: {headerTitle: 'Profil'} },
+        KundeService: {screen: KundeService, navigationOptions: {headerTitle: 'Kundeservice'}}
     },
     {initialRouteKey: 'SettingsList'}
 );
 const StackNavigatorTrades = createStackNavigator(
     {
-        MyTradesScreen: {screen: MyTrades},
-        ProductDetails: {screen: ProductDetails}
+        MyTradesScreen: {screen: MyTrades, navigationOptions: {headerTitle: 'Mine handler'}},
+        ProductDetails: {screen: ProductDetails, navigationOptions: {headerTitle: 'Produkt'}}
     }
 )
 

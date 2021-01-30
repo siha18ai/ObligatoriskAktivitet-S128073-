@@ -18,8 +18,8 @@ const Sportsbørsen = require("../../assets/Sportsbørsen.png")
 export default class LoginView extends React.Component {
 
     state = {
-        email: 'mail@email.dk',
-        password: '123456@',
+        email: '',
+        password: '',
         isLoading: false,
         isCompleted: false,
         errorMessage: null,
@@ -33,23 +33,23 @@ export default class LoginView extends React.Component {
     handleChangeEmail = email => this.setState({email});
     handleChangePassword = password => this.setState({password});
 
-    componentWillUnmount() {
-        this.setState = (state,callback)=>{
-            return;
-        }
-    }
-
     render = () => {
         const { email, password, errorMessage } = this.state;
         return (
         <View style={styles.Container}>
             <Image source={Sportsbørsen} style={styles.image}/>
             <View style={styles.insideContainer}>
-                <TextInput placeholder="email" value={email} onChangeText={this.handleChangeEmail}
-                style={styles.textInput}/>
-                <TextInput placeholder="password" value={password} onChangeText={this.handleChangePassword}
-                secureTextEntry
-                style={styles.textInput}/>
+                <TextInput
+                    placeholder="email"
+                    value={email}
+                    onChangeText={this.handleChangeEmail}
+                    style={styles.textInput}/>
+                <TextInput
+                    placeholder="password"
+                    value={password}
+                    onChangeText={this.handleChangePassword}
+                    secureTextEntry
+                    style={styles.textInput}/>
                 {errorMessage && (
                     <Text style={styles.error}> Error: {errorMessage} </Text>
                 )}
@@ -63,12 +63,13 @@ export default class LoginView extends React.Component {
         const {email, password} = this.state;
         try {
             this.startLoading();
+            await console.log("Email: " + email + " og password: " + password);
             this.clearError();
-            const result = await firebase.auth().signInWithEmailAndPassword(email, password);
+            await firebase.auth().signInWithEmailAndPassword(email, password);
             this.endLoading();
             this.setState({isCompleted: true});
         } catch (e) {
-            this.setError(e.message);
+            this.setError("Forkert email eller password");
             this.endLoading();
         }
     };

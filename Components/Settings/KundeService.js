@@ -6,11 +6,13 @@ import RadioButtonRN from "radio-buttons-react-native";
 
 export default class ProfileScreen extends React.Component {
     render() {
-        return(
+        return (
             <View style={styles.container}>
-                <Text>
-                    Vil du donere dit brugte sportsudstyr? Ring på +45 12345678
-                </Text>
+                <View style={styles.view1}>
+                    <Text>
+                        Vil du donere dit brugte sportsudstyr? Ring på +45 12345678
+                    </Text>
+                </View>
             </View>
         )
     }
