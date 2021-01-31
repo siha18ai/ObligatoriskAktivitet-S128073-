@@ -5,11 +5,12 @@ import {
     View,
     TextInput,
     ActivityIndicator,
-    StyleSheet,
+    StyleSheet, Image,
 } from 'react-native';
 import TitleLayout from "../Layout/TitleLayout";
 import {Buttons} from "../Buttons";
 
+const Sportsbørsen = require("../../assets/Sportsbørsen.png");
 
 export default class SignUpView extends React.Component {
 
@@ -34,7 +35,7 @@ export default class SignUpView extends React.Component {
         const { email, password, errorMessage } = this.state;
         return(
             <View style={styles.Container}>
-                <TitleLayout title={"Opret dig"}/>
+                <Image source={Sportsbørsen} style={styles.image}/>
             <View style={styles.insideContainer}>
                 <TextInput placeholder={"email"} value={email} onChangeText={this.handleChangeEmail}
                 style={styles.textInput}/>

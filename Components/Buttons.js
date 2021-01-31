@@ -3,14 +3,14 @@ import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: "#D22322",
+        backgroundColor: "#00f",
         paddingVertical: 10,
         paddingHorizontal: 45,
         alignItems: "center",
         marginHorizontal: 20
     },
     buttonLoading: {
-        backgroundColor: "#E58E8D"
+        backgroundColor: "#00f"
     },
     text: {
         fontWeight: "500",

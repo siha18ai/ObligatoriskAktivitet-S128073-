@@ -4,13 +4,14 @@ import {Button, FlatList, ScrollView, StyleSheet, TextInput, View, Alert, Platfo
 import RadioButtonRN from "radio-buttons-react-native";
 
 
-export default class ProfileScreen extends React.Component {
+export default class KundeService extends React.Component {
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.view1}>
-                    <Text>
-                        Vil du donere dit brugte sportsudstyr? Ring på +45 12345678
+                    <Text style={styles.header}>
+                        Vil du donere dit brugte sportsudstyr?
+                        Ring på +45 12345678
                     </Text>
                 </View>
             </View>
@@ -22,6 +23,15 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    header: {
+        margin: 24,
+        fontSize: 16,
+        fontFamily: 'Georgia',
+        fontStyle: 'italic',
+        textAlign: 'center',
+        alignItems: 'center'
+
     },
     leftContainer: {
         flexDirection: 'row'
