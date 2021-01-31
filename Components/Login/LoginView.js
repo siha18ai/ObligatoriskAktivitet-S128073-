@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {Buttons} from "../Buttons";
 
-const Sportsbørsen = require("../../assets/Sportsbørsen.png")
+const Sportsbørsen = require("../../assets/Sportsbørsen.png");
 
 
 
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         minWidth:'80%'
     },
     error: {
-        color: 'red',
+        color: 'blue',
     },
     textInput: {
         borderWidth: 1,

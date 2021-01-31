@@ -30,7 +30,7 @@ export default class ProductList extends React.Component {
             .database()
             .ref('/Products')
             .orderByChild('/sport')
-            .equalTo('fodbold')
+            .equalTo('Fodbold')
             .on('value', snapshot => {
                 this.setState({fodboldProducts: snapshot.val()});
             });
@@ -38,7 +38,7 @@ export default class ProductList extends React.Component {
             .database()
             .ref('/Products')
             .orderByChild('/sport')
-            .equalTo('tennis')
+            .equalTo('Tennis')
             .on('value', snapshot => {
                 this.setState({tennisProducts: snapshot.val()});
             });
@@ -121,6 +121,7 @@ export default class ProductList extends React.Component {
         if(!fodboldProducts || !tennisProducts|| !svømningProducts|| !håndboldProducts|| !volleyballProducts|| !dansProducts|| !ishockeyProducts|| !basketBallProducts|| !badmintonProducts){
             return <Text> Loading products </Text>
         }
+
 
         //Opretter array til vores flatlist
         const fodboldProductsArray = Object.values(fodboldProducts);

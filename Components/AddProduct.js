@@ -205,6 +205,7 @@ export default class AddProduct extends React.Component {
         } = this.state;
         return (
             <ScrollView style={styles.container}>
+                <SafeAreaView>
                 <View>
                     <Text style={styles.header}>
                         Opret dit produkt
@@ -259,7 +260,7 @@ export default class AddProduct extends React.Component {
                     />
                 </View>
                 <View>
-                    <Text> Billedenavn </Text>
+                    <Text> Giv annoncen et navn </Text>
                     <TextInput
                         style={styles.searchInput}
                         placeholder={"Indtast størrelse fx. M, L osv."}
@@ -271,6 +272,8 @@ export default class AddProduct extends React.Component {
                     />
                 </View>
                 <View>
+                    <Text> Hvilken sport? </Text>
+                    <View style={styles.containerPicker}>
                     <Picker
                         selectedValue={sport}
                         style={{height: 50, width: 150}}
@@ -287,7 +290,9 @@ export default class AddProduct extends React.Component {
                         <Picker.Item label="Badminton" value="Badminton"/>
 
                     </Picker>
+                    </View>
                 </View>
+                </SafeAreaView>
                 <View>
                     <Buttons onPress={this.takePhoto} text={"Tag billede"}/>
                 </View>
@@ -326,6 +331,11 @@ const containerStyle = {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    containerPicker: {
+      flex: 1,
+      alignItems: 'center',
+        paddingBottom: 200,
     },
     header: {
         margin: 24,

@@ -81,6 +81,30 @@ export default class SettingsList extends React.Component{
                 <Buttons
                     text="Profil"
                     onPress={() => this.props.navigation.navigate('ProfileScreen')}/>
+
+                </View>
+                <View style={styles.view1}>
+                    <Buttons
+                        text="Kundeservice"
+                        onPress={() => this.props.navigation.navigate('KundeService')}
+                    />
+                </View>
+                <View style={styles.view1}>
+                    <Buttons text="Tag foto" onPress={this.pickImageSettings}/>
+                    {image && (
+                        <View>
+                            <Image source={{ uri: image}} style={styles.image}/>
+                            <Buttons
+                                disabled={isUploading}
+                                text={"Upload"}
+                                onPress={this.handleUploadImageSettings} />
+                        </View>
+                    )}
+                    {isUploading && <ActivityIndicator/>}
+                    {isCompleted && <Text>Billedet er nu vedhæftet produktet</Text>}
+                    {errorMessage && <Text> {errorMessage} </Text>}
+                </View>
+                <View style={styles.view1}>
                 <Buttons onPress={() => Alert.alert(   // Shows up the alert without redirecting anywhere
                     'Godkendt følgende'
                     , 'Vil du gerne logge ud?'
@@ -98,25 +122,6 @@ export default class SettingsList extends React.Component{
                         {text: 'Nej'}
                     ]
                 )} text="Log ud"/>
-                <Buttons
-                    text="Kundeservice"
-                    onPress={() => this.props.navigation.navigate('KundeService')}
-                />
-                </View>
-                <View style={styles.view2}>
-                    <Buttons text="Tag foto" onPress={this.pickImageSettings}/>
-                    {image && (
-                        <View>
-                            <Image source={{ uri: image}} style={styles.image}/>
-                            <Buttons
-                                disabled={isUploading}
-                                text={"Upload"}
-                                onPress={this.handleUploadImageSettings} />
-                        </View>
-                    )}
-                    {isUploading && <ActivityIndicator/>}
-                    {isCompleted && <Text>Billedet er nu vedhæftet produktet</Text>}
-                    {errorMessage && <Text> {errorMessage} </Text>}
                 </View>
             </View>
         )
@@ -125,15 +130,22 @@ export default class SettingsList extends React.Component{
 const styles = StyleSheet.create({
     Container:{
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#00f',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    view1: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: 40,
+        paddingTop: 40
+
     },
     insideContainer:{
         minWidth:'80%'
     },
     error: {
-        color: 'red',
+        color: '#00f',
     },
     textInput: {
         borderWidth: 1,
