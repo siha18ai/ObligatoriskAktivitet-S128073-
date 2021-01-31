@@ -1,16 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import ProductList from './Components/ProductList';
 import { createStackNavigator } from 'react-navigation-stack';
-import {AntDesign, MaterialIcons, FontAwesome5, MaterialCommunityIcons, Octicons} from '@expo/vector-icons';
-import {createAppContainer, getActiveChildNavigationOptions} from "react-navigation";
+import {AntDesign,MaterialCommunityIcons, Octicons} from '@expo/vector-icons';
+import {createAppContainer} from "react-navigation";
 import firebase from 'firebase';
 import ProductDetails from "./Components/SubComponents/ProductDetails";
 import AddProduct from "./Components/AddProduct";
 import EditProduct from "./Components/SubComponents/EditProduct";
 import GLOBALUser from "./Components/GlobalUser";
-import { Alert,Platform,LogBox, Text, View} from 'react-native';
+import { Platform,LogBox, Text, View} from 'react-native';
 import MyTrades from './Components/SubComponents/Trades/MyTrades';
 import BrandScreen from './Components/Login/BrandScreen';
 import ScreenNavigator from './Components/Login/ScreenNavigator';
@@ -50,6 +49,7 @@ const headerRight = () =>{
 }
 
 
+//Vi laver fore stacknavigator for vores besked side
 const StackNavigatorMessage = createStackNavigator(
     {
         ChatListItem: {screen: ChatListItem, navigationOptions: {headerTitle: 'Alle samtaler'}},
@@ -76,6 +76,8 @@ const StackNavigatorMessage = createStackNavigator(
     //Vi siger hvilken klasse der først skal tilgåes af de 3 ovenstående
     {initialRouteKey: 'ChatListItem'}
 );
+
+//Vi laver fore stacknavigator for vores indstilinger-side
 const StackNavigatorSetting = createStackNavigator(
     {
         SettingsList: {screen: SettingsList, navigationOptions: {headerTitle: 'Indstillinger'}},
@@ -84,6 +86,8 @@ const StackNavigatorSetting = createStackNavigator(
     },
     {initialRouteKey: 'SettingsList'}
 );
+
+//Vi laver fore stacknavigator for vores 'Mine handler' side
 const StackNavigatorTrades = createStackNavigator(
     {
         MyTradesScreen: {screen: MyTrades, navigationOptions: {headerTitle: 'Mine handler'}},
@@ -92,7 +96,7 @@ const StackNavigatorTrades = createStackNavigator(
 )
 
 
-//Vi opretter vores tab i bunden
+//Vi opretter vores tab navigator med alle de ovenstående stacknavigators
 const TabNavigator = createBottomTabNavigator({
 
     Main: {
@@ -158,6 +162,8 @@ const TabNavigator = createBottomTabNavigator({
         size:40
       }
     });
+
+//Vi laver vores login stacknavigator
 const LoginBrandNavigator = createStackNavigator({
 
     BrandScreen:{screen:BrandScreen, navigationOptions:{headerShown:false}},
@@ -168,23 +174,28 @@ const LoginBrandNavigator = createStackNavigator({
 );
 
 
+//Vi laver en konstant af vores 2 hoved navigators
 const LoginContainer = createAppContainer(LoginBrandNavigator);
 const AppContainer = createAppContainer(TabNavigator);
 
+
+//Vi eksporter appen
 export default class App extends React.Component {
 
+    //Vi laver en constructor
     constructor() {
         super();
         GLOBALUser.user = this;
         this.init();
         this.observeAuth();
     }
-    state= {
-        user:null
+
+    state = {
+        user: null
     };
 
     componentWillUnmount() {
-        this.setState = (state,callback)=>{
+        this.setState = (state, callback) => {
             return;
         };
     }
@@ -200,29 +211,33 @@ export default class App extends React.Component {
             messagingSenderId: "1094098734207",
             appId: "1:1094098734207:web:cc153710b383277492c34a",
             measurementId: "G-6YGGC5MT4X"
-        }
+        };
         // Initialize Firebase
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
-    }
+    };
+
+    //Vi laver en global bruger, så vi kan følge hvilken bruger der er logget ind
     observeAuth = () => {
         firebase.auth().onAuthStateChanged(user => {
             this.setState({user});
 
             GLOBALUser.user.setState({
-                user:user
+                user: user
             })
         });
-    }
-  render() {
+    };
+
+    //Vi laver en render funktion og returnerer enten vores loginnavigator eller vores appcontainer, der indeholder vores buttomtabnavigator
+    render() {
         if (!this.state.user) {
             return <LoginContainer/>
         } else {
             //Returnere vores tab navigator
             return <AppContainer/>;
         }
-  }
+    }
 }
 
 

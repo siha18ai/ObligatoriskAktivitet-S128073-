@@ -5,6 +5,16 @@ import {createAppContainer} from "react-navigation";
 import {AntDesign} from '@expo/vector-icons';
 import React from "react";
 
+
+
+
+
+//Denne komponent står for navigationen mellem signup og login. Vi har af gøre med en bottomnavigator der har login og sigup som screns
+
+
+
+
+
 const LoginNavigator = createBottomTabNavigator({
 
         Login: {

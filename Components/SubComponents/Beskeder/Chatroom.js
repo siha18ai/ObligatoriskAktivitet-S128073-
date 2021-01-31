@@ -4,21 +4,23 @@ import {
     Text,
     View,
     FlatList,
-    TextInput,
-    KeyboardAvoidingView,
-    Alert,
-    ActivityIndicator
+    TextInput
 } from 'react-native';
 
 import firebase from "firebase";
 import {Buttons} from "../../Buttons";
 import Row, {Separator} from "../../Row";
-import {AntDesign, MaterialIcons, FontAwesome5, MaterialCommunityIcons, Octicons} from '@expo/vector-icons';
-import Carousel from "react-native-snap-carousel";
-import ChatMessage from "./ChatMessage";
-import {lessThan} from "react-native-reanimated";
 
+
+
+//Denne komponent reuturnerer vores chat. Her kan man skrive beskeder til hinanden og man kan se ældre beskeder
+
+
+
+//Vi eksporterer vores komponent
 export default class Chatroom extends React.Component {
+
+    //Vi laver nogle states som vi skal bruge i render
     state = {
         user: null,
         messages: {},
@@ -32,30 +34,39 @@ export default class Chatroom extends React.Component {
         currentUserNavn: ''
     };
 
+
+    //Vi laver en handler til at håndtere vores states i render
     handleBeskedChange = text => this.setState({besked: text});
 
+    //Vi kalder på componentDidMount som executer diverse funktioner
     async componentDidMount() {
+
+        //Vi får id
         const id = this.props.navigation.getParam('id');
         const currentId = this.state.id;
         this.setState({senderId: id});
 
+        //Vi loader nuværende bruger
         await this.loadCurrentUser(currentId);
 
         await console.log("Current user navn: " + this.state.currentUserNavn);
 
-
+        //Vi loader brugeren vi skal chatte med
         if (!this.state.user) {
             await this.loadUser(id);
         }
 
+        //Vi loader chatten hvis vi har den
         await this.loadChat();
 
+        //Hvis vi ikke har en chat endnu, laver vi en
         if (this.state.chatFundet === false) {
         } else {
             await this.getBeskeder()
         }
     }
 
+    //Vi loader nuværende bruger
     loadCurrentUser = async id => {
         try {
             firebase
@@ -75,6 +86,8 @@ export default class Chatroom extends React.Component {
         }
     };
 
+
+    //Vi loader brugeren vi skal chatte med
     loadUser = async id => {
         try {
             firebase
@@ -93,10 +106,13 @@ export default class Chatroom extends React.Component {
             console.log("Der sker en fejl med brugeren her: " + e)
         }
     };
+
+    //håndtere om vi har chatten
     handleChatFundet = async () => {
         this.setState({chatFundet: true})
     };
 
+    //Vi loader chatten hvis vi har en
     loadChat = async () => {
         const {user, id} = this.state;
         let boolean = 0;
@@ -134,6 +150,8 @@ export default class Chatroom extends React.Component {
             console.log("Det er her det sker, chatroom" + e)
         }
     };
+
+    //Denne funktion laver en chat
     createChat = () => {
         const {
             senderId,
@@ -152,11 +170,13 @@ export default class Chatroom extends React.Component {
         }
     };
 
+    //Denne funktion står for at sende en besked
     sendMessage = async () => {
         await this.createBeskeder();
         await this.getBeskeder();
     };
 
+    //Denne funktion returnerer alle beskeder i cahtten
     getBeskeder = async () => {
         const {chatKey} = this.state;
 
@@ -168,6 +188,7 @@ export default class Chatroom extends React.Component {
             });
     };
 
+    //Denne funktion laver beskeder
     createBeskeder = async () => {
         const {besked, user, chatKey} = this.state;
         const afsender = user.id;
@@ -188,6 +209,8 @@ export default class Chatroom extends React.Component {
 
     };
 
+
+    //Vi laver en render som returnerer beskederne og et textinput så brgueren kan skrive en besked
     render() {
         const {besked, user, chat, senderId, messages} = this.state;
 
@@ -268,6 +291,8 @@ export default class Chatroom extends React.Component {
         );
     }
 }
+
+//Styles
 const styles = StyleSheet.create({
     container2: {
         flex: 1,

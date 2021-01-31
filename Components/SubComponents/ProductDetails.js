@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { View, Text, FlatList, StyleSheet, Button, Platform, Alert, ImageBackground, ScrollView,
-    SafeAreaView, Image } from 'react-native';
+import { View, Text, StyleSheet, Button, Platform, Alert, ImageBackground, ScrollView,
+    SafeAreaView } from 'react-native';
 import firebase from 'firebase';
 import _ from 'lodash';
 import {LogBox} from "react-native";
@@ -14,10 +14,20 @@ console.warn = message => {
     }
 };
 
+
+
+//Denne komponent returner produktdetaljer om vores produkt
+
+
+
+
+//Vi eksporterer vores komponent
 export default class ProductDetails extends React.Component {
 
     _isMounted = false;
 
+
+    //Vi laver nogle states
     state = {
         products: null,
         profileImageUrl: ''
@@ -34,6 +44,8 @@ export default class ProductDetails extends React.Component {
 
     }
 
+
+    //Vi loader vores produkt der er trykket på
     loadProduct = id => {
         firebase
             .database()
@@ -43,12 +55,16 @@ export default class ProductDetails extends React.Component {
             });
     };
 
+    //Vi håndterer at brugeren har trykket edit
     handleEdit = () => {
         const {navigation} = this.props;
         const id = navigation.getParam('id');
         //Navigerer til klassen EditProduct med tilhørende id
         this.props.navigation.navigate('EditProduct', {id});
     };
+
+
+    //Vi håndterer at brugeren har trykket ja til at slette sit produkt
     confirmDelete = () => {
         //Hvis platform er lig med ios eller android får vi en alert.
         //Derfor hvis det er computer vil den ikke gå ind i denne metode
@@ -65,6 +81,7 @@ export default class ProductDetails extends React.Component {
         }
     };
 
+    //Vi håndterer at brugeren har trykket på slet produkt
     handleDelete = () => {
         const {navigation} = this.props;
         const id = navigation.getParam("id");
@@ -80,6 +97,10 @@ export default class ProductDetails extends React.Component {
         }
     };
 
+
+
+
+    //Vi laver en render funktion som returnere information om produktet og 2 knapper
     render() {
         //HVis der er et product skal den returnere nedenståe views og buttons
         const {products} = this.state;
@@ -147,6 +168,8 @@ export default class ProductDetails extends React.Component {
     }
 }
 
+
+//Styes
 const styles = StyleSheet.create({
     container: { flex: 1, justifyContent: 'flex-start' },
     row: {

@@ -7,13 +7,25 @@ import {
     ActivityIndicator,
     StyleSheet, Image,
 } from 'react-native';
-import TitleLayout from "../Layout/TitleLayout";
 import {Buttons} from "../Buttons";
+
+
+
+
+//Denne komponent står for at returnere vores signupview.
+
+
 
 const Sportsbørsen = require("../../assets/Sportsbørsen.png");
 
+
+
+
+//Vi eksporterer vores komponent
 export default class SignUpView extends React.Component {
 
+
+    //Vi opretter states som vi skal bruge senere
     state= {
         email: '',
         password: '',
@@ -22,6 +34,8 @@ export default class SignUpView extends React.Component {
         errorMessage: null,
     };
 
+
+    //Vi opretter alle handlers som skal håndtere states i render funktionen
     setError = errorMessage => this.setState({errorMessage});
     clearError = () => this.setState({errorMessage: null});
     startLoading = () => this.setState({isLoading: true});
@@ -31,6 +45,8 @@ export default class SignUpView extends React.Component {
     handleChangePassword = password => this.setState({password});
 
 
+
+    //Vi laver en render funktion som returner diverse textinputs og knapper
     render = () => {
         const { email, password, errorMessage } = this.state;
         return(
@@ -51,6 +67,8 @@ export default class SignUpView extends React.Component {
         )
     };
 
+
+    //Denne funktion håndterer tryk på knappen signup
     handleSubmit = async () => {
         const {email, password} = this.state;
         try {
@@ -67,6 +85,7 @@ export default class SignUpView extends React.Component {
         }
     };
 
+    //returnerer knappen og activityindicator
     renderButton = () => {
         const {isLoading} = this.state;
         if (isLoading) {

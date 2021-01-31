@@ -3,6 +3,9 @@ import { Text as DefaultText, View as DefaultView } from 'react-native';
 import Colors from "./Constants/Colors";
 import useColorScheme from "./Constants/UseColorScheme";
 
+
+//Indeholder design
+
 export function useThemeColor(
     props: { light?: string; dark?: string },
     colorName: keyof typeof Colors.light & keyof typeof Colors.dark

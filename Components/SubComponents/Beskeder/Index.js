@@ -4,7 +4,18 @@ import Row, {Separator} from "../../Row";
 import firebase from "firebase";
 import {Buttons} from "../../Buttons";
 
+
+
+//Denne funktion returnerer voes chatliste. Den returnerer alle chats som brugeren har
+
+
+
+
+//Vi exporterer vores komponent
 export default class ChatListItem extends React.Component{
+
+
+    //Vi laver nogle states som vi skal bruge i render
     state = {
         chatsId: {},
         chatsSenderId: {},
@@ -12,6 +23,7 @@ export default class ChatListItem extends React.Component{
         id: firebase.auth().currentUser.uid
     };
 
+    //Vi kalder på componentDidMount som excecuter diverse funktioner
     async componentDidMount() {
         const {id} = this.state;
         await this.getUserById(id);
@@ -26,6 +38,7 @@ export default class ChatListItem extends React.Component{
         }
     }
 
+    //Vi finder alle chats som current user er involveret i
     getUserById = async (id) =>{
         firebase
             .database()
@@ -37,6 +50,7 @@ export default class ChatListItem extends React.Component{
             })
     }
 
+    //Vi finder alle chats som current user er involveret i
     getUserBySenderId = async (id) => {
         firebase
             .database()
@@ -48,6 +62,7 @@ export default class ChatListItem extends React.Component{
             });
     }
 
+    //Vi finder brugeren der er chattet med
     getUsers = async () => {
         const chats1 = Object.values(this.state.chatsId);
         const chats2 = Object.values(this.state.chatsSenderId);
@@ -60,6 +75,7 @@ export default class ChatListItem extends React.Component{
         }
     };
 
+    //Vi loader brugeren som vi har chattet med
     loadUser = async (id) => {
         let brugere = this.state.brugere;
         firebase
@@ -75,14 +91,13 @@ export default class ChatListItem extends React.Component{
             });
     }
 
+    //Vi opretter en handler af states som vi bruger i render
     handleSelectConversation = () => {
         this.props.navigation.navigate('FindPersoner');
     };
 
-    handleSelectPerson = (id, name) => {
-        this.props.navigation.navigate('Chatroom', {id, name})
-    }
 
+    //Vi laver en render funktion som returner en flatlist med samtaler og en knap for en ny besked
     render() {
         const {brugere} = this.state;
 
@@ -137,6 +152,7 @@ export default class ChatListItem extends React.Component{
     }
 };
 
+//Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,

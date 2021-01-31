@@ -1,15 +1,22 @@
 import * as React from 'react';
 import firebase from 'firebase';
-import {Button, FlatList, ScrollView, StyleSheet, TextInput, View, Alert, Platform, Text} from "react-native";
+import {Button, ScrollView, StyleSheet, TextInput, View, Alert, Platform, Text} from "react-native";
 import RadioButtonRN from "radio-buttons-react-native";
 
 
+//Dennne komponent returnerer et view, hvor brugeren kan ændre i sine oplysninger
+
+
+//Vi eksporterer vores komponent
 export default class ProfileScreen extends React.Component {
+
+    //Vi laver en konstruktor
     constructor() {
         super();
     }
 
 
+    //Vi opretter nogel states som vi skal bruge i render
     state={
         id: firebase.auth().currentUser.uid,
         user: firebase.auth().currentUser,
@@ -22,6 +29,7 @@ export default class ProfileScreen extends React.Component {
         radio_button: ''
     }
 
+    //Vi opretter diverse handlers som skal ændre på vores states i render funktionen
     handleEmailChange = email => this.setState({email});
     handlePasswordChange = password => this.setState({password});
     handleNameChange = name => this.setState({name});
@@ -33,6 +41,7 @@ export default class ProfileScreen extends React.Component {
     }
 
 
+    //Vi kalder på componentDidMount som bliver executetet når komponenten bliver kaldt
     componentDidMount() {
         this.getCurrentUserAttribute()
     }
@@ -122,6 +131,7 @@ export default class ProfileScreen extends React.Component {
     }
 
 
+    //Vi kalder på vores renter funktion som returnerer nogle texinput som brugere skal bruge til at ændre oplysninger
     render() {
         const {email, password, id, name, address, telephone, gender} = this.state;
         const radioButtons = [
@@ -184,6 +194,8 @@ export default class ProfileScreen extends React.Component {
     }
 }
 
+
+//Styles
 const styles = StyleSheet.create({
     container: { flex: 1, justifyContent: 'flex-start' },
     row: {

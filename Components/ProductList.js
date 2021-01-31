@@ -1,12 +1,19 @@
 import * as React from 'react';
-import {View, Text, FlatList, TouchableOpacity, ScrollView, StyleSheet, Picker} from 'react-native';
-import firebase, {database} from 'firebase';
-import Row, {Separator} from './Row';
+import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import firebase from 'firebase';
+import {Separator} from './Row';
 import Carousel from 'react-native-snap-carousel';
 import Product from "./Product";
 
 
+
+//Denne komponent står for at vise alle vores produkter i udforsk viewet
+
+
+
+//Vi eksporterer vores komponent
 export default class ProductList extends React.Component {
+
     //Sætter products til at være et state så vi kan give dem værdier
     state = {
         fodboldProducts: {},
@@ -22,7 +29,9 @@ export default class ProductList extends React.Component {
         productsTilAfhandling: {},
         id: firebase.auth().currentUser.uid
     };
-    //Vi istantiere dataen på vores endpoint i firebase
+
+
+    //Vi kalder på funktionen componentDidMount der excecutor diverse kald til databasen, så vi får alle vores produkter i kataloget
     componentDidMount() {
         firebase
             .database()
@@ -105,7 +114,11 @@ export default class ProductList extends React.Component {
         this.props.navigation.navigate('ProductDetails', {id});
     };
 
+
+    //Vi laver en render funktion, der retunrer diverse flatlists med forskellige kategorier af produkter
     render() {
+
+        //Vi får vores konstanter fra state
         const {fodboldProducts,
             tennisProducts,
             svømningProducts,
@@ -116,6 +129,8 @@ export default class ProductList extends React.Component {
             basketBallProducts,
             badmintonProducts} = this.state;
 
+
+        //Vi tjekker om vi har alle vores produkter
         if(!fodboldProducts || !tennisProducts|| !svømningProducts|| !håndboldProducts|| !volleyballProducts|| !dansProducts|| !ishockeyProducts|| !basketBallProducts|| !badmintonProducts){
             return <Text> Loading products </Text>
         }
@@ -456,6 +471,10 @@ export default class ProductList extends React.Component {
         );
     }
 }
+
+
+
+//Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,

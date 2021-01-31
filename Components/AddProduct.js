@@ -1,5 +1,4 @@
-
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
     View,
     Text,
@@ -8,31 +7,29 @@ import {
     Alert,
     ScrollView,
     SafeAreaView,
-    TouchableOpacity,
     Dimensions,
-    FlatList,
     Image,
     AsyncStorage,
     KeyboardAvoidingView,
-    Button,
     ActivityIndicator,
     Picker
 } from 'react-native';
 import firebase from 'firebase';
-import {Body, Container, Header, Title, ActionSheet, Root} from "native-base";
 import {Buttons} from "./Buttons";
-import {TextField} from "./Form";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import {setSelectedLog} from "react-native/Libraries/LogBox/Data/LogBoxData";
-
-
 const width = Dimensions.get('window').width;
 
 
+
+//Denne komponent returner vores view, hvor man kan tilføje et produkt
+
+
+
+//Vi eksporterer vores komponent
 export default class AddProduct extends React.Component {
 
-
+    //Vi laver nogle states
     state = {
         hasCameraRollPermission: null,
         lastPhoto: null,
@@ -69,6 +66,7 @@ export default class AddProduct extends React.Component {
     handleChangeSport = text => this.setState({sport: text});
 
 
+    //Denne funktion håndterer at brugeren har trykket tilføj. Den lægger produktet op i databsen
     handleSave = () => {
         const {
             id,
@@ -111,6 +109,8 @@ export default class AddProduct extends React.Component {
         }
     };
 
+
+    //Vi kalder på componentDidMount som håndterer at få billeder i databasen
     componentDidMount() {
         this.updateCameraRollPermission();
         let images;
@@ -126,11 +126,13 @@ export default class AddProduct extends React.Component {
             });
     }
 
+    //Vi opdaterer vores kamera permissions
     updateCameraRollPermission = async () => {
         const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
         this.setState({hasCameraPermission: status === 'granted'})
     };
 
+    //Vi håndterer at man oploader billedet
     handleUploadImage = async () => {
         const {image} = this.state;
         const {currentUser} = firebase.auth();
@@ -144,6 +146,8 @@ export default class AddProduct extends React.Component {
         }
     };
 
+
+    //Denne funktion håndterer at vedkommende tager et billede
     takePhoto = async () => {
         let result = await ImagePicker.launchCameraAsync();
         const {image} = this.state;
@@ -160,6 +164,8 @@ export default class AddProduct extends React.Component {
         }
     };
 
+
+    //Vi gemmer billedet fra kamerarullen
     handleSaveToCameraRoll = async uri => {
         console.log(1);
         try {
@@ -169,6 +175,8 @@ export default class AddProduct extends React.Component {
         }
     };
 
+
+    //Denne funktikon oploader billedet til databasen
     uploadImage = async (uri) => {
         const {currentUser} = firebase.auth();
         const {pictureName} = this.state;
@@ -183,6 +191,8 @@ export default class AddProduct extends React.Component {
         return uploadedImageUrl;
     }
 
+
+    //Denne metode ser hvilket billede vi har valgt og gemmer det i states
     pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -190,6 +200,8 @@ export default class AddProduct extends React.Component {
         this.setState({image: result.uri});
     };
 
+
+    //Vi laver en render funktion som returnerer diverse textinputs og knapper
     render() {
         const {
             pictureName,
@@ -322,12 +334,7 @@ export default class AddProduct extends React.Component {
 }
 
 
-const containerStyle = {
-    padding: 10,
-    borderRadius: 10,
-    margin: 10,
-    borderWidth: 1,
-};
+//Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,

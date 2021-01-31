@@ -1,6 +1,11 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
+
+
+
+//Denne komponent står for alle knapper i programmet. Det er bare knap-komponent vi selv har lavet
+
 const styles = StyleSheet.create({
     button: {
         backgroundColor: "#00f",
@@ -19,6 +24,8 @@ const styles = StyleSheet.create({
     }
 });
 
+
+//Vi eksporterer vores knap
 export const Buttons = ({ text, onPress, disabled = false, style = {} }) => (
     <TouchableOpacity
         onPress={onPress}

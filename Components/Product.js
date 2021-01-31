@@ -2,6 +2,47 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+
+//Denne komponent returnerer en TouchableOpacity. Det er en komponent vi selv har lavet som vi kalder på flere gange
+
+
+
+export default class Row extends React.Component{
+    handlePress = () => {
+        const {id, onSelect, name} = this.props;
+        if(!name){
+            onSelect(id);
+        }
+        else{
+            onSelect(id, name);
+        }
+    };
+    render() {
+        const {title, price, Photo } = this.props
+        return(
+            <TouchableOpacity onPress={this.handlePress} style={styles.container}>
+                <View>
+                    <Image
+                        style={styles.image}
+                        source={Photo}/>
+                </View>
+                <View style={styles.content}>
+                    <Text style={styles.title}>Mærke: {title}</Text>
+                    <Text style={styles.subtitle}>Pris: {price}</Text>
+                </View>
+                <View style={styles.right}>
+                    <Ionicons name="ios-arrow-forward" color="#666" size={20} />
+                </View>
+            </TouchableOpacity>
+        )
+    }
+}
+
+export const Separator = () => <View style={styles.separator} />;
+
+
+
+//Style
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
@@ -39,35 +80,3 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
-export default class Row extends React.Component{
-    handlePress = () => {
-        const {id, onSelect, name} = this.props;
-        if(!name){
-            onSelect(id);
-        }
-        else{
-            onSelect(id, name);
-        }
-    };
-    render() {
-        const {title, price, Photo } = this.props
-        return(
-            <TouchableOpacity onPress={this.handlePress} style={styles.container}>
-                <View>
-                    <Image
-                        style={styles.image}
-                        source={Photo}/>
-                </View>
-                <View style={styles.content}>
-                    <Text style={styles.title}>Mærke: {title}</Text>
-                    <Text style={styles.subtitle}>Pris: {price}</Text>
-                </View>
-                <View style={styles.right}>
-                    <Ionicons name="ios-arrow-forward" color="#666" size={20} />
-                </View>
-            </TouchableOpacity>
-        )
-    }
-}
-
-export const Separator = () => <View style={styles.separator} />;

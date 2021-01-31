@@ -5,7 +5,14 @@ import {Buttons} from "../Buttons";
 import * as ImagePicker from "expo-image-picker";
 
 
+//Denne komponent er hovedkomponenten i settinsnavigator. Den indeholder 4 knapper som hver har en funktion
+
+
+//Vi eksporterer vores komponent
 export default class SettingsList extends React.Component{
+
+
+    //Vi opretter states som vi skal bruge i render
     state={
         hasCameraRollPermission: null,
         lastPhoto: null,
@@ -20,15 +27,21 @@ export default class SettingsList extends React.Component{
         imageUri:'',
         uploadedImageUri: '',
     };
+
+    //Vi laver en handler som håndterer vores states i render
     handleUploadImageChangeSettings = text => this.setState({uploadedImageUri: text});
 
 
+    //Denne funktion gør at man kommer ind på sit galeri
     pickImageSettings = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
         });
         this.setState({ image: result.uri });
     };
+
+
+    //Denne funktionen håndterer tryk på upload knappen
     handleUploadImageSettings = async () => {
         const {image} = this.state;
         const {currentUser} = firebase.auth();
@@ -43,6 +56,7 @@ export default class SettingsList extends React.Component{
         }
     };
 
+    //Denne funktione uploader billedet til databasen
     uploadImageSettings = async (uri) => {
         const {currentUser} = firebase.auth();
         const {pictureName} = this.state;
@@ -57,6 +71,8 @@ export default class SettingsList extends React.Component{
         return uploadedImageUrl;
     };
 
+
+    //Denne funktion vedhæfter billedet til brugeren
     attatchPictureToProfile = async uploadedImageUrl => {
         const{id} = this.state;
         firebase
@@ -68,6 +84,7 @@ export default class SettingsList extends React.Component{
     };
 
 
+    //Vi laver en render funktion som returenrer diverse knapper
     render() {
         const {
             image,
@@ -127,6 +144,9 @@ export default class SettingsList extends React.Component{
         )
     }
 }
+
+
+//Styles
 const styles = StyleSheet.create({
     Container:{
         flex: 1,

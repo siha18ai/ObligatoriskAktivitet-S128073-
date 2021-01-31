@@ -4,7 +4,15 @@ import firebase from "firebase";
 import Row, {Separator} from "../../Row";
 
 
+//Denne komponent viser alle ens egne oprettede produkter
+
+
+
+//Vi eksporterer vores kompnent
 export default class MyTrades extends Component{
+
+
+    //Vi opretter nogle states
     state = {
         products: {},
     };
@@ -23,10 +31,13 @@ export default class MyTrades extends Component{
             });
     }
 
+    //Vi opretter en funktion til at handle state chagne
     handleSelectProduct = id => {
         this.props.navigation.navigate('ProductDetails', {id});
     };
 
+
+    //Vi opretter en render funktion som returnerer alle vores produkter i en flatlist
     render() {
         const {products} = this.state;
 

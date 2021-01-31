@@ -11,12 +11,21 @@ import {
 } from 'react-native';
 import {Buttons} from "../Buttons";
 
+
+//Denne komponent returnerer vores login skærm.
+
+
+
+
+
+//Vi importerer vores billede
 const Sportsbørsen = require("../../assets/Sportsbørsen.png");
 
 
-
+//Vi returnerer vores komponent
 export default class LoginView extends React.Component {
 
+    //Opretter states
     state = {
         email: '',
         password: '',
@@ -25,6 +34,7 @@ export default class LoginView extends React.Component {
         errorMessage: null,
     };
 
+    //Vi opretter alle handlers vi bruger i renderfunktionen
     setError = errorMessage => this.setState({errorMessage});
     clearError = () => this.setState({errorMessage: null});
     startLoading = () => this.setState({isLoading: true});
@@ -33,6 +43,8 @@ export default class LoginView extends React.Component {
     handleChangeEmail = email => this.setState({email});
     handleChangePassword = password => this.setState({password});
 
+
+    //Vi laver en render funktion der returnerer diverse textinput og en knap over til signupview
     render = () => {
         const { email, password, errorMessage } = this.state;
         return (
@@ -59,6 +71,7 @@ export default class LoginView extends React.Component {
         )
     };
 
+    //Vi laver en funktion der håndterer, at brugeren logger ind
     handleSubmit = async () => {
         const {email, password} = this.state;
         try {
@@ -73,7 +86,6 @@ export default class LoginView extends React.Component {
             this.endLoading();
         }
     };
-
     renderButton = () => {
         const {isLoading} = this.state;
         if (isLoading) {

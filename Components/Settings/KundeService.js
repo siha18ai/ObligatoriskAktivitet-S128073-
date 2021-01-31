@@ -1,10 +1,16 @@
 import * as React from 'react';
-import firebase from 'firebase';
-import {Button, FlatList, ScrollView, StyleSheet, TextInput, View, Alert, Platform, Text} from "react-native";
-import RadioButtonRN from "radio-buttons-react-native";
+import {StyleSheet, View, Text} from "react-native";
 
 
+//Denn komponent står for at returnere et simpelt view med info om kundeservice
+
+
+
+
+//Vi returnerer vores komponent
 export default class KundeService extends React.Component {
+
+    //Vi laver en render funktion der returner noget text
     render() {
         return (
             <View style={styles.container}>
@@ -18,6 +24,9 @@ export default class KundeService extends React.Component {
         )
     }
 }
+
+
+//Styles
 const styles = StyleSheet.create({
     container2: {
         flex: 1,
