@@ -3,13 +3,11 @@ import {View, Text, FlatList, TouchableOpacity, ScrollView, StyleSheet, Picker} 
 import firebase, {database} from 'firebase';
 import Row, {Separator} from './Row';
 import Carousel from 'react-native-snap-carousel';
-
-import ProductListItem from './SubComponents/ProductListItem';
 import Product from "./Product";
 
 
 export default class ProductList extends React.Component {
-    //Sætter products til at være et state så vi kan give den værdier
+    //Sætter products til at være et state så vi kan give dem værdier
     state = {
         fodboldProducts: {},
         tennisProducts: {},
