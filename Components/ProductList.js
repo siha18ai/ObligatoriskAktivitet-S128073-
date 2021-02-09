@@ -144,25 +144,25 @@ export default class ProductList extends React.Component {
         const tennisProductsKeys = Object.keys(tennisProducts);
 
         const svømningArray = Object.values(svømningProducts);
-        const svømingKeys = Object.values(svømningProducts);
+        const svømingKeys = Object.keys(svømningProducts);
 
         const håndboldArray = Object.values(håndboldProducts);
-        const håndboldKeys = Object.values(håndboldProducts);
+        const håndboldKeys = Object.keys(håndboldProducts);
 
         const volleyballArray = Object.values(volleyballProducts);
-        const volleyballKeys = Object.values(volleyballProducts);
+        const volleyballKeys = Object.keys(volleyballProducts);
 
         const dansArray = Object.values(dansProducts);
-        const dansKeys = Object.values(dansProducts);
+        const dansKeys = Object.keys(dansProducts);
 
         const ishockeyArray = Object.values(ishockeyProducts);
-        const ishockeyKeys = Object.values(ishockeyProducts);
+        const ishockeyKeys = Object.keys(ishockeyProducts);
 
         const basketBallPArray = Object.values(basketBallProducts);
-        const basketBallPKeys = Object.values(basketBallProducts);
+        const basketBallPKeys = Object.keys(basketBallProducts);
 
         const badmintonArray = Object.values(badmintonProducts);
-        const badmintonKeys = Object.values(badmintonProducts);
+        const badmintonKeys = Object.keys(badmintonProducts);
 
 
         //Returnerer flatlist sammen med list item, som gør at når vi trykker på dem at der sker noget
