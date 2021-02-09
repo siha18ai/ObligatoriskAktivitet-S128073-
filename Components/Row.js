@@ -15,7 +15,7 @@ export default class Row extends React.Component{
         }
     };
     render() {
-        const {title, price, Photo } = this.props
+        const {title, price, Photo } = this.props;
         return(
             <TouchableOpacity onPress={this.handlePress} style={styles.container}>
                 <View>

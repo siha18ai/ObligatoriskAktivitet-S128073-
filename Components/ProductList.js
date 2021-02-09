@@ -249,7 +249,7 @@ export default class ProductList extends React.Component {
                                         title={name}
                                         price={price}
                                         Photo={{uri: image}}
-                                        id={tennisProductsKeys[index]}
+                                        id={svømingKeys[index]}
                                         onSelect={this.handleSelectProduct}
                                     />
                                 );
@@ -282,7 +282,7 @@ export default class ProductList extends React.Component {
                                         title={name}
                                         price={price}
                                         Photo={{uri: image}}
-                                        id={tennisProductsKeys[index]}
+                                        id={håndboldKeys[index]}
                                         onSelect={this.handleSelectProduct}
                                     />
                                 );
@@ -315,7 +315,7 @@ export default class ProductList extends React.Component {
                                         title={name}
                                         price={price}
                                         Photo={{uri: image}}
-                                        id={tennisProductsKeys[index]}
+                                        id={volleyballKeys[index]}
                                         onSelect={this.handleSelectProduct}
                                     />
                                 );
@@ -348,7 +348,7 @@ export default class ProductList extends React.Component {
                                         title={name}
                                         price={price}
                                         Photo={{uri: image}}
-                                        id={tennisProductsKeys[index]}
+                                        id={dansKeys[index]}
                                         onSelect={this.handleSelectProduct}
                                     />
                                 );
@@ -381,7 +381,7 @@ export default class ProductList extends React.Component {
                                         title={name}
                                         price={price}
                                         Photo={{uri: image}}
-                                        id={tennisProductsKeys[index]}
+                                        id={ishockeyKeys[index]}
                                         onSelect={this.handleSelectProduct}
                                     />
                                 );
@@ -414,7 +414,7 @@ export default class ProductList extends React.Component {
                                         title={name}
                                         price={price}
                                         Photo={{uri: image}}
-                                        id={tennisProductsKeys[index]}
+                                        id={basketBallPKeys[index]}
                                         onSelect={this.handleSelectProduct}
                                     />
                                 );
@@ -447,7 +447,7 @@ export default class ProductList extends React.Component {
                                         title={name}
                                         price={price}
                                         Photo={{uri: image}}
-                                        id={tennisProductsKeys[index]}
+                                        id={badmintonKeys[index]}
                                         onSelect={this.handleSelectProduct}
                                     />
                                 );
