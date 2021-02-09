@@ -6,14 +6,6 @@ import _ from 'lodash';
 import {LogBox} from "react-native";
 import {Buttons} from "../Buttons";
 
-LogBox.ignoreLogs(['Setting a timer']);
-const _console = _.clone(console);
-console.warn = message => {
-    if (message.indexOf('Setting a timer') <= -1) {
-        _console.warn(message);
-    }
-};
-
 
 
 //Denne komponent returner produktdetaljer om vores produkt

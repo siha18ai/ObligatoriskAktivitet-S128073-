@@ -1,7 +1,7 @@
 import * as React from 'react';
 import firebase from 'firebase';
 import {Button, ScrollView, StyleSheet, TextInput, View, Alert, Platform, Text} from "react-native";
-import RadioButtonRN from "radio-buttons-react-native";
+//import RadioButtonRN from "radio-buttons-react-native";
 
 
 //Dennne komponent returnerer et view, hvor brugeren kan ændre i sine oplysninger
@@ -175,16 +175,6 @@ export default class ProfileScreen extends React.Component {
                             value={telephone}
                             onChangeText={this.handleTelephoneChange}
                             style={styles.textInput}
-                        />
-                    </View>
-                    <View>
-                        <Text> Køn </Text>
-                        <RadioButtonRN
-                        data={radioButtons}
-                        value={gender}
-                        initial={1}
-                        activeColor={"green"}
-                        selectedBtn={this.handleGenderChange}
                         />
                     </View>
                     <Button title={"Gem"} onPress={this.saveProfile}/>

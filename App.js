@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import ProductList from './Components/ProductList';
 import { createStackNavigator } from 'react-navigation-stack';
-import {AntDesign,MaterialCommunityIcons, Octicons} from '@expo/vector-icons';
+import {AntDesign,MaterialCommunityIcons} from '@expo/vector-icons';
 import {createAppContainer} from "react-navigation";
 import firebase from 'firebase';
 import ProductDetails from "./Components/SubComponents/ProductDetails";
